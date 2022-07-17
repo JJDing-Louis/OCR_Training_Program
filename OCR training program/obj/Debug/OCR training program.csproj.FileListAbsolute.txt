@@ -1,0 +1,23 @@
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\bin\Debug\OCR training program.exe.config
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\bin\Debug\OCR training program.exe
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\bin\Debug\OCR training program.pdb
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.AssemblyReference.cache
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR_training_program.Main.resources
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR_training_program.Properties.Resources.resources
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.GenerateResource.cache
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.CoreCompileInputs.cache
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR training program.exe
+C:\Users\LouisDing\Desktop\OCR training program\OCR training program\obj\Debug\OCR training program.pdb
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\bin\Debug\OCR training program.exe.config
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\bin\Debug\OCR training program.exe
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\bin\Debug\OCR training program.pdb
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\bin\Debug\halcondotnet.dll
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\bin\Debug\halcondotnet.xml
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.AssemblyReference.cache
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR_training_program.Main.resources
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR_training_program.Properties.Resources.resources
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.GenerateResource.cache
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.CoreCompileInputs.cache
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR training program.csproj.CopyComplete
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR training program.exe
+C:\Users\windows user\Desktop\OCR Training Program Project\OCR training program\OCR training program\obj\Debug\OCR training program.pdb
