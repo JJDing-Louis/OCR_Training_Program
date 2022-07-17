@@ -100,7 +100,7 @@ namespace OCR_training_program
         private string Other_Char_Saving_Path = Par.Char_Image_Folder + Par.Other_Char_Image_Folder;
         private string Uppercase_Char_Saving_Path = Par.Char_Image_Folder + Par.Uppercase_Char_Image_Folder;
 
-        #region Halcon建構子
+        #region Halcon欄位
 
         private int Classify_Progress;
         private HObject ho_OriImage = new HObject();
@@ -113,7 +113,7 @@ namespace OCR_training_program
         private HTuple OCR_handel = new HTuple();
         private HTuple OCR_model = new HTuple();
 
-        #endregion Halcon建構子
+        #endregion Halcon欄位
 
         #endregion 欄位
 
@@ -154,6 +154,11 @@ namespace OCR_training_program
             bgW_Classify.ReportProgress(4);
         }
 
+        /// <summary>
+        /// 分類功能的背景程序處裡結果 (待整理)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bgW_Classify_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             switch (e.ProgressPercentage)
@@ -287,6 +292,11 @@ namespace OCR_training_program
             }
         }
 
+        /// <summary>
+        /// 開始批次辨識
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Run_Click(object sender, EventArgs e)
         {
             //防比對字串未輸入
@@ -701,5 +711,95 @@ namespace OCR_training_program
         #endregion 方法
 
         #endregion 字元分類
+
+        #region 字元訓練
+
+        #region 欄位
+
+        private string OCR_Training_FileName = string.Empty;
+
+        #endregion 欄位
+
+        #region Halcon欄位
+
+        private HObject Characters_Images = new HObject();
+        private HTuple Characters_Names = new HTuple();
+        private HTuple hv_OCRHandle = new HTuple();
+
+        #endregion Halcon欄位
+
+        #region 控鍵
+
+        /// <summary>
+        /// 讀取已存在的OCR訓練檔
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Load_Traing_File_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "*.trf|";
+                openFileDialog.InitialDirectory = Par.OCR_Traing_FilePath;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    OCR_Training_FileName = openFileDialog.FileName.Substring(openFileDialog.FileName.LastIndexOf("\\") + 1);
+                    txt_Train_OCR_Filename.Text = OCR_Training_FileName;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 開始字元訓練
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Start_Train_OCR_Click(object sender, EventArgs e)
+        {
+            ///步驟草稿
+            ///1. 讀取命名檔名(需有訓練檔命名規則)
+            Load_or_Create_OCR_Traing_File();
+            ///2. 讀取已有的訓練檔或者建立新檔
+            ///3. 遍力圖檔並加入訓練檔
+            ///4. 讀取設定條件
+            ///
+            /// 4.1建立OCR_handle
+            ///5. 開始訓練
+            ///6. 輸出訓練檔
+        }
+
+        #endregion 控鍵
+
+        #region Method
+
+        /// <summary>
+        /// 建立，或者讀取已存在的OCR_File
+        /// </summary>
+        private void Load_or_Create_OCR_Traing_File()
+        {
+            if (txt_Train_OCR_Filename.Text != string.Empty)
+            {
+                OCR_Training_FileName = txt_Train_OCR_Filename.Text;
+            }
+            else
+            {
+                MessageBox.Show("尚未建立OCR訓練檔的名稱");
+            }
+            string file_path = Par.OCR_Traing_FilePath + OCR_Training_FileName;
+            if (File.Exists(file_path))
+            {
+                //讀取OCR訓練檔
+                HOperatorSet.ReadOcrTrainf(out Characters_Images, file_path, out Characters_Names);
+            }
+            else
+            {
+                //建立OCR訓練檔 (待思考如何建立)
+                //只讀檔，不做任何動作
+            }
+        }
+
+        #endregion Method
+
+        #endregion 字元訓練
     }
 }

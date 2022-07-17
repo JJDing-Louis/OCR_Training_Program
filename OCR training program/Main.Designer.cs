@@ -69,31 +69,32 @@ namespace OCR_training_program
             this.lbl_Compare_text = new System.Windows.Forms.Label();
             this.btn_load_image_folder = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lbl_Interpolate = new System.Windows.Forms.Label();
+            this.cBx_Interpolate = new System.Windows.Forms.ComboBox();
+            this.gBx_Basic_Setting = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.gBx_Advance_Setting = new System.Windows.Forms.GroupBox();
+            this.cLB_Advance_Setting = new System.Windows.Forms.CheckedListBox();
             this.txt_Train_OCR_Filename = new System.Windows.Forms.TextBox();
             this.lbl_Train_OCR_Filename = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btn_Start_Train_OCR = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.bgW_Classify = new System.ComponentModel.BackgroundWorker();
-            this.gBx_Advance_Setting = new System.Windows.Forms.GroupBox();
-            this.cLB_Advance_Setting = new System.Windows.Forms.CheckedListBox();
-            this.gBx_Basic_Setting = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.cBx_Interpolate = new System.Windows.Forms.ComboBox();
-            this.lbl_Interpolate = new System.Windows.Forms.Label();
+            this.btn_Load_Traing_File = new System.Windows.Forms.Button();
             this.tabCon_Char_Classifier.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.gBx_Advance_Setting.SuspendLayout();
             this.gBx_Basic_Setting.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.gBx_Advance_Setting.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabCon_Char_Classifier
@@ -148,7 +149,7 @@ namespace OCR_training_program
             // proBar_Classify_Process
             // 
             this.proBar_Classify_Process.Location = new System.Drawing.Point(21, 428);
-            this.proBar_Classify_Process.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.proBar_Classify_Process.Margin = new System.Windows.Forms.Padding(4);
             this.proBar_Classify_Process.Name = "proBar_Classify_Process";
             this.proBar_Classify_Process.Size = new System.Drawing.Size(788, 55);
             this.proBar_Classify_Process.Step = 1;
@@ -157,7 +158,7 @@ namespace OCR_training_program
             // txt_Identify_result
             // 
             this.txt_Identify_result.Location = new System.Drawing.Point(520, 99);
-            this.txt_Identify_result.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Identify_result.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Identify_result.Name = "txt_Identify_result";
             this.txt_Identify_result.ReadOnly = true;
             this.txt_Identify_result.Size = new System.Drawing.Size(483, 34);
@@ -200,9 +201,9 @@ namespace OCR_training_program
             this.groupBox1.Controls.Add(this.cb_min_word_width_auto);
             this.groupBox1.Controls.Add(this.cb_min_word_high_auto);
             this.groupBox1.Location = new System.Drawing.Point(391, 150);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(613, 252);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
@@ -236,7 +237,7 @@ namespace OCR_training_program
             "Industrial_0-9A-Z_NoRej.omc",
             "SFCompactText-RegularG2_0-9A-Z.omc"});
             this.CB_OCR_type.Location = new System.Drawing.Point(244, 36);
-            this.CB_OCR_type.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CB_OCR_type.Margin = new System.Windows.Forms.Padding(4);
             this.CB_OCR_type.Name = "CB_OCR_type";
             this.CB_OCR_type.Size = new System.Drawing.Size(228, 34);
             this.CB_OCR_type.TabIndex = 35;
@@ -254,7 +255,7 @@ namespace OCR_training_program
             // Btn_build_OCR
             // 
             this.Btn_build_OCR.Location = new System.Drawing.Point(8, 35);
-            this.Btn_build_OCR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Btn_build_OCR.Margin = new System.Windows.Forms.Padding(4);
             this.Btn_build_OCR.Name = "Btn_build_OCR";
             this.Btn_build_OCR.Size = new System.Drawing.Size(115, 38);
             this.Btn_build_OCR.TabIndex = 25;
@@ -267,7 +268,7 @@ namespace OCR_training_program
             this.Tb_max_word_high.Enabled = false;
             this.Tb_max_word_high.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Tb_max_word_high.Location = new System.Drawing.Point(205, 108);
-            this.Tb_max_word_high.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tb_max_word_high.Margin = new System.Windows.Forms.Padding(4);
             this.Tb_max_word_high.Mask = "999";
             this.Tb_max_word_high.Name = "Tb_max_word_high";
             this.Tb_max_word_high.PromptChar = ' ';
@@ -290,7 +291,7 @@ namespace OCR_training_program
             this.Tb_min_word_width.Enabled = false;
             this.Tb_min_word_width.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Tb_min_word_width.Location = new System.Drawing.Point(436, 152);
-            this.Tb_min_word_width.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tb_min_word_width.Margin = new System.Windows.Forms.Padding(4);
             this.Tb_min_word_width.Mask = "999";
             this.Tb_min_word_width.Name = "Tb_min_word_width";
             this.Tb_min_word_width.PromptChar = ' ';
@@ -303,7 +304,7 @@ namespace OCR_training_program
             this.Tb_min_width.Enabled = false;
             this.Tb_min_width.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Tb_min_width.Location = new System.Drawing.Point(436, 200);
-            this.Tb_min_width.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tb_min_width.Margin = new System.Windows.Forms.Padding(4);
             this.Tb_min_width.Mask = "999";
             this.Tb_min_width.Name = "Tb_min_width";
             this.Tb_min_width.PromptChar = ' ';
@@ -316,7 +317,7 @@ namespace OCR_training_program
             this.Tb_min_word_high.Enabled = false;
             this.Tb_min_word_high.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Tb_min_word_high.Location = new System.Drawing.Point(436, 108);
-            this.Tb_min_word_high.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tb_min_word_high.Margin = new System.Windows.Forms.Padding(4);
             this.Tb_min_word_high.Mask = "999";
             this.Tb_min_word_high.Name = "Tb_min_word_high";
             this.Tb_min_word_high.PromptChar = ' ';
@@ -339,7 +340,7 @@ namespace OCR_training_program
             this.Tb_max_width.Enabled = false;
             this.Tb_max_width.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Tb_max_width.Location = new System.Drawing.Point(205, 200);
-            this.Tb_max_width.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tb_max_width.Margin = new System.Windows.Forms.Padding(4);
             this.Tb_max_width.Mask = "999";
             this.Tb_max_width.Name = "Tb_max_width";
             this.Tb_max_width.PromptChar = ' ';
@@ -353,7 +354,7 @@ namespace OCR_training_program
             this.cb_max_word_high_auto.Checked = true;
             this.cb_max_word_high_auto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_max_word_high_auto.Location = new System.Drawing.Point(273, 110);
-            this.cb_max_word_high_auto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_max_word_high_auto.Margin = new System.Windows.Forms.Padding(4);
             this.cb_max_word_high_auto.Name = "cb_max_word_high_auto";
             this.cb_max_word_high_auto.Size = new System.Drawing.Size(83, 31);
             this.cb_max_word_high_auto.TabIndex = 44;
@@ -376,7 +377,7 @@ namespace OCR_training_program
             this.Tb_max_word_width.Enabled = false;
             this.Tb_max_word_width.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Tb_max_word_width.Location = new System.Drawing.Point(205, 152);
-            this.Tb_max_word_width.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Tb_max_word_width.Margin = new System.Windows.Forms.Padding(4);
             this.Tb_max_word_width.Mask = "999";
             this.Tb_max_word_width.Name = "Tb_max_word_width";
             this.Tb_max_word_width.PromptChar = ' ';
@@ -410,7 +411,7 @@ namespace OCR_training_program
             this.cb_max_word_width_auto.Checked = true;
             this.cb_max_word_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_max_word_width_auto.Location = new System.Drawing.Point(273, 155);
-            this.cb_max_word_width_auto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_max_word_width_auto.Margin = new System.Windows.Forms.Padding(4);
             this.cb_max_word_width_auto.Name = "cb_max_word_width_auto";
             this.cb_max_word_width_auto.Size = new System.Drawing.Size(83, 31);
             this.cb_max_word_width_auto.TabIndex = 45;
@@ -434,7 +435,7 @@ namespace OCR_training_program
             this.cb_min_width_auto.Checked = true;
             this.cb_min_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_min_width_auto.Location = new System.Drawing.Point(507, 202);
-            this.cb_min_width_auto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_min_width_auto.Margin = new System.Windows.Forms.Padding(4);
             this.cb_min_width_auto.Name = "cb_min_width_auto";
             this.cb_min_width_auto.Size = new System.Drawing.Size(83, 31);
             this.cb_min_width_auto.TabIndex = 49;
@@ -448,7 +449,7 @@ namespace OCR_training_program
             this.cb_max_width_auto.Checked = true;
             this.cb_max_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_max_width_auto.Location = new System.Drawing.Point(273, 202);
-            this.cb_max_width_auto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_max_width_auto.Margin = new System.Windows.Forms.Padding(4);
             this.cb_max_width_auto.Name = "cb_max_width_auto";
             this.cb_max_width_auto.Size = new System.Drawing.Size(83, 31);
             this.cb_max_width_auto.TabIndex = 46;
@@ -472,7 +473,7 @@ namespace OCR_training_program
             this.cb_min_word_width_auto.Checked = true;
             this.cb_min_word_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_min_word_width_auto.Location = new System.Drawing.Point(507, 155);
-            this.cb_min_word_width_auto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_min_word_width_auto.Margin = new System.Windows.Forms.Padding(4);
             this.cb_min_word_width_auto.Name = "cb_min_word_width_auto";
             this.cb_min_word_width_auto.Size = new System.Drawing.Size(83, 31);
             this.cb_min_word_width_auto.TabIndex = 48;
@@ -486,7 +487,7 @@ namespace OCR_training_program
             this.cb_min_word_high_auto.Checked = true;
             this.cb_min_word_high_auto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_min_word_high_auto.Location = new System.Drawing.Point(507, 110);
-            this.cb_min_word_high_auto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_min_word_high_auto.Margin = new System.Windows.Forms.Padding(4);
             this.cb_min_word_high_auto.Name = "cb_min_word_high_auto";
             this.cb_min_word_high_auto.Size = new System.Drawing.Size(83, 31);
             this.cb_min_word_high_auto.TabIndex = 47;
@@ -594,6 +595,7 @@ namespace OCR_training_program
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btn_Load_Traing_File);
             this.tabPage2.Controls.Add(this.lbl_Interpolate);
             this.tabPage2.Controls.Add(this.cBx_Interpolate);
             this.tabPage2.Controls.Add(this.gBx_Basic_Setting);
@@ -612,113 +614,32 @@ namespace OCR_training_program
             this.tabPage2.Text = "訓練";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // txt_Train_OCR_Filename
+            // lbl_Interpolate
             // 
-            this.txt_Train_OCR_Filename.Location = new System.Drawing.Point(235, 14);
-            this.txt_Train_OCR_Filename.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txt_Train_OCR_Filename.Name = "txt_Train_OCR_Filename";
-            this.txt_Train_OCR_Filename.Size = new System.Drawing.Size(600, 34);
-            this.txt_Train_OCR_Filename.TabIndex = 3;
+            this.lbl_Interpolate.AutoSize = true;
+            this.lbl_Interpolate.Location = new System.Drawing.Point(22, 136);
+            this.lbl_Interpolate.Name = "lbl_Interpolate";
+            this.lbl_Interpolate.Size = new System.Drawing.Size(60, 27);
+            this.lbl_Interpolate.TabIndex = 7;
+            this.lbl_Interpolate.Text = "內插";
             // 
-            // lbl_Train_OCR_Filename
+            // cBx_Interpolate
             // 
-            this.lbl_Train_OCR_Filename.AutoSize = true;
-            this.lbl_Train_OCR_Filename.Location = new System.Drawing.Point(129, 18);
-            this.lbl_Train_OCR_Filename.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_Train_OCR_Filename.Name = "lbl_Train_OCR_Filename";
-            this.lbl_Train_OCR_Filename.Size = new System.Drawing.Size(105, 27);
-            this.lbl_Train_OCR_Filename.TabIndex = 2;
-            this.lbl_Train_OCR_Filename.Text = "字元檔 : ";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(28, 401);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(520, 46);
-            this.progressBar1.TabIndex = 1;
-            // 
-            // btn_Start_Train_OCR
-            // 
-            this.btn_Start_Train_OCR.Location = new System.Drawing.Point(8, 9);
-            this.btn_Start_Train_OCR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btn_Start_Train_OCR.Name = "btn_Start_Train_OCR";
-            this.btn_Start_Train_OCR.Size = new System.Drawing.Size(113, 46);
-            this.btn_Start_Train_OCR.TabIndex = 0;
-            this.btn_Start_Train_OCR.Text = "Train";
-            this.btn_Start_Train_OCR.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 35);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Size = new System.Drawing.Size(1023, 499);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "測試";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // bgW_Classify
-            // 
-            this.bgW_Classify.WorkerReportsProgress = true;
-            this.bgW_Classify.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_Classify_DoWork);
-            this.bgW_Classify.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_Classify_ProgressChanged);
-            // 
-            // gBx_Advance_Setting
-            // 
-            this.gBx_Advance_Setting.Controls.Add(this.cLB_Advance_Setting);
-            this.gBx_Advance_Setting.Location = new System.Drawing.Point(323, 66);
-            this.gBx_Advance_Setting.Name = "gBx_Advance_Setting";
-            this.gBx_Advance_Setting.Size = new System.Drawing.Size(228, 308);
-            this.gBx_Advance_Setting.TabIndex = 4;
-            this.gBx_Advance_Setting.TabStop = false;
-            this.gBx_Advance_Setting.Text = "進階特徵";
-            // 
-            // cLB_Advance_Setting
-            // 
-            this.cLB_Advance_Setting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cLB_Advance_Setting.FormattingEnabled = true;
-            this.cLB_Advance_Setting.Items.AddRange(new object[] {
-            "pixel",
-            "pixel_invar",
-            "pixel_binary",
-            "gradient_8dir",
-            "projection_horizontal",
-            "projection_horizontal_invar",
-            "projection_vertical",
-            "projection_vertical_invar",
-            "ratio",
-            "anisometry",
-            "width",
-            "height",
-            "zoom_factor",
-            "foreground",
-            "foreground_grid_9",
-            "foreground_grid_16",
-            "compactness",
-            "convexity",
-            "moments_region_2nd_invar",
-            "moments_region_2nd_rel_invar",
-            "moments_region_3rd_invar",
-            "moments_central",
-            "moments_gray_plane",
-            "phi",
-            "num_connect",
-            "num_holes",
-            "cooc",
-            "num_runs",
-            "chord_histo"});
-            this.cLB_Advance_Setting.Location = new System.Drawing.Point(3, 30);
-            this.cLB_Advance_Setting.Name = "cLB_Advance_Setting";
-            this.cLB_Advance_Setting.Size = new System.Drawing.Size(222, 275);
-            this.cLB_Advance_Setting.TabIndex = 0;
+            this.cBx_Interpolate.FormattingEnabled = true;
+            this.cBx_Interpolate.Items.AddRange(new object[] {
+            "常數",
+            "近鄰",
+            "雙線性",
+            "權重"});
+            this.cBx_Interpolate.Location = new System.Drawing.Point(88, 132);
+            this.cBx_Interpolate.Name = "cBx_Interpolate";
+            this.cBx_Interpolate.Size = new System.Drawing.Size(121, 34);
+            this.cBx_Interpolate.TabIndex = 6;
             // 
             // gBx_Basic_Setting
             // 
             this.gBx_Basic_Setting.Controls.Add(this.tableLayoutPanel1);
-            this.gBx_Basic_Setting.Location = new System.Drawing.Point(17, 117);
+            this.gBx_Basic_Setting.Location = new System.Drawing.Point(24, 183);
             this.gBx_Basic_Setting.Name = "gBx_Basic_Setting";
             this.gBx_Basic_Setting.Size = new System.Drawing.Size(276, 163);
             this.gBx_Basic_Setting.TabIndex = 5;
@@ -746,18 +667,6 @@ namespace OCR_training_program
             this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 130);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton1.Location = new System.Drawing.Point(3, 3);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(129, 37);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "灰階值";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
@@ -769,6 +678,18 @@ namespace OCR_training_program
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "字符區域";
             this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton1.Location = new System.Drawing.Point(3, 3);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(129, 37);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "灰階值";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton3
             // 
@@ -815,27 +736,120 @@ namespace OCR_training_program
             this.checkBox3.Text = "凸面";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // cBx_Interpolate
+            // gBx_Advance_Setting
             // 
-            this.cBx_Interpolate.FormattingEnabled = true;
-            this.cBx_Interpolate.Items.AddRange(new object[] {
-            "常數",
-            "近鄰",
-            "雙線性",
-            "權重"});
-            this.cBx_Interpolate.Location = new System.Drawing.Point(81, 66);
-            this.cBx_Interpolate.Name = "cBx_Interpolate";
-            this.cBx_Interpolate.Size = new System.Drawing.Size(121, 34);
-            this.cBx_Interpolate.TabIndex = 6;
+            this.gBx_Advance_Setting.Controls.Add(this.cLB_Advance_Setting);
+            this.gBx_Advance_Setting.Location = new System.Drawing.Point(330, 132);
+            this.gBx_Advance_Setting.Name = "gBx_Advance_Setting";
+            this.gBx_Advance_Setting.Size = new System.Drawing.Size(228, 308);
+            this.gBx_Advance_Setting.TabIndex = 4;
+            this.gBx_Advance_Setting.TabStop = false;
+            this.gBx_Advance_Setting.Text = "進階特徵";
             // 
-            // lbl_Interpolate
+            // cLB_Advance_Setting
             // 
-            this.lbl_Interpolate.AutoSize = true;
-            this.lbl_Interpolate.Location = new System.Drawing.Point(15, 70);
-            this.lbl_Interpolate.Name = "lbl_Interpolate";
-            this.lbl_Interpolate.Size = new System.Drawing.Size(60, 27);
-            this.lbl_Interpolate.TabIndex = 7;
-            this.lbl_Interpolate.Text = "內插";
+            this.cLB_Advance_Setting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cLB_Advance_Setting.FormattingEnabled = true;
+            this.cLB_Advance_Setting.Items.AddRange(new object[] {
+            "pixel",
+            "pixel_invar",
+            "pixel_binary",
+            "gradient_8dir",
+            "projection_horizontal",
+            "projection_horizontal_invar",
+            "projection_vertical",
+            "projection_vertical_invar",
+            "ratio",
+            "anisometry",
+            "width",
+            "height",
+            "zoom_factor",
+            "foreground",
+            "foreground_grid_9",
+            "foreground_grid_16",
+            "compactness",
+            "convexity",
+            "moments_region_2nd_invar",
+            "moments_region_2nd_rel_invar",
+            "moments_region_3rd_invar",
+            "moments_central",
+            "moments_gray_plane",
+            "phi",
+            "num_connect",
+            "num_holes",
+            "cooc",
+            "num_runs",
+            "chord_histo"});
+            this.cLB_Advance_Setting.Location = new System.Drawing.Point(3, 30);
+            this.cLB_Advance_Setting.Name = "cLB_Advance_Setting";
+            this.cLB_Advance_Setting.Size = new System.Drawing.Size(222, 275);
+            this.cLB_Advance_Setting.TabIndex = 0;
+            // 
+            // txt_Train_OCR_Filename
+            // 
+            this.txt_Train_OCR_Filename.Location = new System.Drawing.Point(235, 14);
+            this.txt_Train_OCR_Filename.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_Train_OCR_Filename.Name = "txt_Train_OCR_Filename";
+            this.txt_Train_OCR_Filename.Size = new System.Drawing.Size(600, 34);
+            this.txt_Train_OCR_Filename.TabIndex = 3;
+            // 
+            // lbl_Train_OCR_Filename
+            // 
+            this.lbl_Train_OCR_Filename.AutoSize = true;
+            this.lbl_Train_OCR_Filename.Location = new System.Drawing.Point(129, 18);
+            this.lbl_Train_OCR_Filename.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_Train_OCR_Filename.Name = "lbl_Train_OCR_Filename";
+            this.lbl_Train_OCR_Filename.Size = new System.Drawing.Size(105, 27);
+            this.lbl_Train_OCR_Filename.TabIndex = 2;
+            this.lbl_Train_OCR_Filename.Text = "字元檔 : ";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(20, 447);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(815, 46);
+            this.progressBar1.TabIndex = 1;
+            // 
+            // btn_Start_Train_OCR
+            // 
+            this.btn_Start_Train_OCR.Location = new System.Drawing.Point(7, 64);
+            this.btn_Start_Train_OCR.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Start_Train_OCR.Name = "btn_Start_Train_OCR";
+            this.btn_Start_Train_OCR.Size = new System.Drawing.Size(113, 46);
+            this.btn_Start_Train_OCR.TabIndex = 0;
+            this.btn_Start_Train_OCR.Text = "Train";
+            this.btn_Start_Train_OCR.UseVisualStyleBackColor = true;
+            this.btn_Start_Train_OCR.Click += new System.EventHandler(this.btn_Start_Train_OCR_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage3.Location = new System.Drawing.Point(4, 35);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage3.Size = new System.Drawing.Size(1023, 499);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "測試";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // bgW_Classify
+            // 
+            this.bgW_Classify.WorkerReportsProgress = true;
+            this.bgW_Classify.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_Classify_DoWork);
+            this.bgW_Classify.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_Classify_ProgressChanged);
+            // 
+            // btn_Load_Traing_File
+            // 
+            this.btn_Load_Traing_File.Location = new System.Drawing.Point(8, 10);
+            this.btn_Load_Traing_File.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Load_Traing_File.Name = "btn_Load_Traing_File";
+            this.btn_Load_Traing_File.Size = new System.Drawing.Size(113, 46);
+            this.btn_Load_Traing_File.TabIndex = 8;
+            this.btn_Load_Traing_File.Text = "Load";
+            this.btn_Load_Traing_File.UseVisualStyleBackColor = true;
+            this.btn_Load_Traing_File.Click += new System.EventHandler(this.btn_Load_Traing_File_Click);
             // 
             // Main
             // 
@@ -843,7 +857,7 @@ namespace OCR_training_program
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1051, 560);
             this.Controls.Add(this.tabCon_Char_Classifier);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "OCR Training Program";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -854,10 +868,10 @@ namespace OCR_training_program
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.gBx_Advance_Setting.ResumeLayout(false);
             this.gBx_Basic_Setting.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.gBx_Advance_Setting.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -922,6 +936,7 @@ namespace OCR_training_program
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button btn_Load_Traing_File;
     }
 }
 
