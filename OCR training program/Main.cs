@@ -1176,10 +1176,70 @@ namespace OCR_training_program
 
         #region 辨識測試
 
+        #region 欄位
+
+        private int Test_Folder_File_Count;
+        private string Test_Folder_Path = string.Empty;
+
+        #endregion 欄位
+
+        #region Halcon欄位
+
+        private HTuple hv_OCRTest_AcqHandle = new HTuple();
+
+        #endregion Halcon欄位
+
         #region 控鍵
 
+        /// <summary>
+        /// 載入測試資料夾
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Load_TestFolder_Click(object sender, EventArgs e)
         {
+            using (FolderBrowserDialog fBD = new FolderBrowserDialog())
+            {
+                if ((fBD.ShowDialog() == DialogResult.OK) && (fBD.SelectedPath != txt_Test_Folder_Path.Text))
+                {
+                    txt_Test_Folder_Path.Text = fBD.SelectedPath;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 開始執行OCR測試
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Run_Image_Test_Click(object sender, EventArgs e)
+        {
+            bgW_RunTestOCR.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// 單次觸發測試
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_SingleTest_Trigger_Click(object sender, EventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// 測試資料夾連線
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_TestFolder_Connect_Click(object sender, EventArgs e)
+        {
+            Test_Folder_Path = txt_Test_Folder_Path.Text;
+            if (Directory.Exists(Test_Folder_Path))
+            {
+                hv_OCRTest_AcqHandle.Dispose();
+                HOperatorSet.OpenFramegrabber("File", 1, 1, 0, 0, 0, 0, "default", -1, "default", -1, "false", Folder_Path, "default", 1, -1, out hv_OCRTest_AcqHandle);
+            }
+            Test_Folder_File_Count = new DirectoryInfo(Test_Folder_Path).GetFiles("*.tiff").Length; //計算測試資料夾的圖檔資料
         }
 
         #endregion 控鍵

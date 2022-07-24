@@ -97,9 +97,9 @@ namespace OCR_training_program
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.btn_Reset = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_Run_Image_Test = new System.Windows.Forms.Button();
+            this.btn_SingleTest_Trigger = new System.Windows.Forms.Button();
+            this.btn_TestFolder_Connect = new System.Windows.Forms.Button();
             this.txt_Comparison_Words = new System.Windows.Forms.TextBox();
             this.lbl_Comparison_Words = new System.Windows.Forms.Label();
             this.hSmartWindowControl1 = new HalconDotNet.HSmartWindowControl();
@@ -128,12 +128,13 @@ namespace OCR_training_program
             this.label12 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_Test_Folder_Path = new System.Windows.Forms.TextBox();
             this.btn_Load_TestFolder = new System.Windows.Forms.Button();
             this.bgW_Classify = new System.ComponentModel.BackgroundWorker();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.bgW_TraingOCR = new System.ComponentModel.BackgroundWorker();
+            this.bgW_RunTestOCR = new System.ComponentModel.BackgroundWorker();
             this.tabCon_Char_Classifier.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -916,14 +917,14 @@ namespace OCR_training_program
             this.tabPage3.Controls.Add(this.label15);
             this.tabPage3.Controls.Add(this.label16);
             this.tabPage3.Controls.Add(this.btn_Reset);
-            this.tabPage3.Controls.Add(this.button1);
-            this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Controls.Add(this.button3);
+            this.tabPage3.Controls.Add(this.btn_Run_Image_Test);
+            this.tabPage3.Controls.Add(this.btn_SingleTest_Trigger);
+            this.tabPage3.Controls.Add(this.btn_TestFolder_Connect);
             this.tabPage3.Controls.Add(this.txt_Comparison_Words);
             this.tabPage3.Controls.Add(this.lbl_Comparison_Words);
             this.tabPage3.Controls.Add(this.hSmartWindowControl1);
             this.tabPage3.Controls.Add(this.groupBox2);
-            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.txt_Test_Folder_Path);
             this.tabPage3.Controls.Add(this.btn_Load_TestFolder);
             this.tabPage3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage3.Location = new System.Drawing.Point(4, 35);
@@ -1023,35 +1024,38 @@ namespace OCR_training_program
             this.btn_Reset.Text = "Reset";
             this.btn_Reset.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btn_Run_Image_Test
             // 
-            this.button1.Font = new System.Drawing.Font("Arial", 13.8F);
-            this.button1.Location = new System.Drawing.Point(614, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 40);
-            this.button1.TabIndex = 45;
-            this.button1.Text = "Run";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_Run_Image_Test.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.btn_Run_Image_Test.Location = new System.Drawing.Point(614, 12);
+            this.btn_Run_Image_Test.Name = "btn_Run_Image_Test";
+            this.btn_Run_Image_Test.Size = new System.Drawing.Size(81, 40);
+            this.btn_Run_Image_Test.TabIndex = 45;
+            this.btn_Run_Image_Test.Text = "Run";
+            this.btn_Run_Image_Test.UseVisualStyleBackColor = true;
+            this.btn_Run_Image_Test.Click += new System.EventHandler(this.btn_Run_Image_Test_Click);
             // 
-            // button2
+            // btn_SingleTest_Trigger
             // 
-            this.button2.Font = new System.Drawing.Font("Arial", 13.8F);
-            this.button2.Location = new System.Drawing.Point(701, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 40);
-            this.button2.TabIndex = 44;
-            this.button2.Text = "Trig";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_SingleTest_Trigger.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.btn_SingleTest_Trigger.Location = new System.Drawing.Point(701, 12);
+            this.btn_SingleTest_Trigger.Name = "btn_SingleTest_Trigger";
+            this.btn_SingleTest_Trigger.Size = new System.Drawing.Size(81, 40);
+            this.btn_SingleTest_Trigger.TabIndex = 44;
+            this.btn_SingleTest_Trigger.Text = "Trig";
+            this.btn_SingleTest_Trigger.UseVisualStyleBackColor = true;
+            this.btn_SingleTest_Trigger.Click += new System.EventHandler(this.btn_SingleTest_Trigger_Click);
             // 
-            // button3
+            // btn_TestFolder_Connect
             // 
-            this.button3.Font = new System.Drawing.Font("Arial", 13.8F);
-            this.button3.Location = new System.Drawing.Point(482, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(125, 40);
-            this.button3.TabIndex = 43;
-            this.button3.Text = "Connect";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_TestFolder_Connect.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.btn_TestFolder_Connect.Location = new System.Drawing.Point(482, 12);
+            this.btn_TestFolder_Connect.Name = "btn_TestFolder_Connect";
+            this.btn_TestFolder_Connect.Size = new System.Drawing.Size(125, 40);
+            this.btn_TestFolder_Connect.TabIndex = 43;
+            this.btn_TestFolder_Connect.Text = "Connect";
+            this.btn_TestFolder_Connect.UseVisualStyleBackColor = true;
+            this.btn_TestFolder_Connect.Click += new System.EventHandler(this.btn_TestFolder_Connect_Click);
             // 
             // txt_Comparison_Words
             // 
@@ -1403,14 +1407,14 @@ namespace OCR_training_program
             this.label13.TabIndex = 7;
             this.label13.Text = "字寬 :";
             // 
-            // textBox1
+            // txt_Test_Folder_Path
             // 
-            this.textBox1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(110, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(354, 34);
-            this.textBox1.TabIndex = 38;
-            this.textBox1.Text = "C:\\Users\\LouisDing\\Desktop\\Work\\TSMC\\20220629_修改過的訓練檔 _字母B\\L4V1B8.L6_2228\\Station" +
+            this.txt_Test_Folder_Path.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Test_Folder_Path.Location = new System.Drawing.Point(110, 15);
+            this.txt_Test_Folder_Path.Name = "txt_Test_Folder_Path";
+            this.txt_Test_Folder_Path.Size = new System.Drawing.Size(354, 34);
+            this.txt_Test_Folder_Path.TabIndex = 38;
+            this.txt_Test_Folder_Path.Text = "C:\\Users\\LouisDing\\Desktop\\Work\\TSMC\\20220629_修改過的訓練檔 _字母B\\L4V1B8.L6_2228\\Station" +
     "A\\Lot6";
             // 
             // btn_Load_TestFolder
@@ -1455,6 +1459,10 @@ namespace OCR_training_program
             this.bgW_TraingOCR.WorkerReportsProgress = true;
             this.bgW_TraingOCR.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_TraingOCR_DoWork);
             this.bgW_TraingOCR.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_TraingOCR_ProgressChanged);
+            // 
+            // bgW_RunTestOCR
+            // 
+            this.bgW_RunTestOCR.WorkerReportsProgress = true;
             // 
             // Main
             // 
@@ -1555,9 +1563,9 @@ namespace OCR_training_program
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button btn_Reset;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_Run_Image_Test;
+        private System.Windows.Forms.Button btn_SingleTest_Trigger;
+        private System.Windows.Forms.Button btn_TestFolder_Connect;
         private System.Windows.Forms.TextBox txt_Comparison_Words;
         private System.Windows.Forms.Label lbl_Comparison_Words;
         private HalconDotNet.HSmartWindowControl hSmartWindowControl1;
@@ -1586,7 +1594,7 @@ namespace OCR_training_program
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_Test_Folder_Path;
         private System.Windows.Forms.Button btn_Load_TestFolder;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
@@ -1594,6 +1602,7 @@ namespace OCR_training_program
         private System.Windows.Forms.ComboBox cbo_Comparison_Condition;
         private System.Windows.Forms.Label lbl_Comparison_Condition;
         private System.ComponentModel.BackgroundWorker bgW_TraingOCR;
+        private System.ComponentModel.BackgroundWorker bgW_RunTestOCR;
     }
 }
 
