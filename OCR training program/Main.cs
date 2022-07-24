@@ -21,6 +21,14 @@ namespace OCR_training_program
 
         public int save_image_delay = 0;
 
+        /// <summary>
+        /// 建立字元陣列用
+        /// 0~9 : 0-9
+        /// 10-35 :a-z
+        /// 36-61:A-Z
+        /// </summary>
+        private List<string> Char_Array = new List<string>();
+
         public Main()
         {
             InitializeComponent();
@@ -37,6 +45,12 @@ namespace OCR_training_program
             string[] ocr_omc_files = Directory.GetFiles(Par.OCR_File_Folder).Select(x => x.Substring(x.LastIndexOf('\\') + 1)).ToArray();
             CB_OCR_type.DataSource = ocr_omc_files;
             CB_OCR_type.SelectedIndex = 0;
+            //訓練內插值_設定初始化
+            cBx_Interpolate.SelectedIndex = 0;
+            //進階特徵_設定初始化
+            cLB_Advance_Setting.SetItemChecked(1, true);
+            //比對條件_設定初始化
+            cbo_Comparison_Condition.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -53,7 +67,6 @@ namespace OCR_training_program
                 if (!Directory.Exists(folder_path))
                     Directory.CreateDirectory(folder_path);
             }
-
             //產生a-z
             for (int i = 0; i < 26; i++)
             {
@@ -70,6 +83,29 @@ namespace OCR_training_program
                 if (!Directory.Exists(folder_path))
                     Directory.CreateDirectory(folder_path);
             }
+
+            #region 偷懶寫字串用
+
+            //using (StreamWriter sw = new StreamWriter(@"char_data.txt"))
+            //{
+            //    foreach (var item in char_list)
+            //    {
+            //        sw.Write($"'{item}',");
+            //    }
+            //}
+
+            #endregion 偷懶寫字串用
+
+            //產生字元陣列，給Halcon Library使用
+            foreach (var item in char_list)
+                Char_Array.Add($"\"{item}\"");
+            ///初始化資料夾
+            ///訓練檔的
+            if (!Directory.Exists(Par.OCR_Traing_FilePath))
+                Directory.CreateDirectory(Par.OCR_Traing_FilePath);
+            ///輸出的訓練檔
+            if (!Directory.Exists(Par.OCR_OMC_FilePath))
+                Directory.CreateDirectory(Par.OCR_OMC_FilePath);
         }
 
         /// <summary>
@@ -117,7 +153,7 @@ namespace OCR_training_program
 
         #endregion 欄位
 
-        #region 方法
+        #region 控鍵
 
         /// <summary>
         /// 開始批次圖像分類
@@ -430,6 +466,10 @@ namespace OCR_training_program
             }
         }
 
+        #endregion 控鍵
+
+        #region 方法
+
         /// <summary>
         /// 字元分類與存檔 (存檔資料夾需要在命名) (待測試)
         /// </summary>
@@ -556,7 +596,7 @@ namespace OCR_training_program
             }
         }
 
-        #region 分析Blob數目
+        #region 分析Blob數目(可能用不到)
 
         ///// <summary>
         ///// 分析Blob數目
@@ -581,7 +621,7 @@ namespace OCR_training_program
         //    Char_Contours = ho_Char_Contours;
         //}
 
-        #endregion 分析Blob數目
+        #endregion 分析Blob數目(可能用不到)
 
         /// <summary>
         /// 取得存檔名稱
@@ -716,7 +756,18 @@ namespace OCR_training_program
 
         #region 欄位
 
+        private List<string> Advance_Region_Feature = new List<string>();
+        private List<string> Basic_Region_Feature = new List<string>();
         private string OCR_Training_FileName = string.Empty;
+        private string OCR_Training_Interpolate = string.Empty;
+
+        /// <summary>
+        /// 紀錄訓練狀態的階段
+        /// </summary>
+        private string Traing_State = string.Empty;
+
+        private enum Training_Interpolate_Option : int
+        { constant, nearest_neighbor, bilinear, weighted }
 
         #endregion 欄位
 
@@ -725,6 +776,11 @@ namespace OCR_training_program
         private HObject Characters_Images = new HObject();
         private HTuple Characters_Names = new HTuple();
         private HTuple hv_OCRHandle = new HTuple();
+        private HTuple OCR_Handle = new HTuple();
+        private HTuple OCR_Training_Feature = new HTuple();
+        private HTuple OCR_Training_Words = new HTuple();
+        private HTuple Training_Error = new HTuple();
+        private HTuple Training_Error_Log = new HTuple();
 
         #endregion Halcon欄位
 
@@ -756,16 +812,121 @@ namespace OCR_training_program
         /// <param name="e"></param>
         private void btn_Start_Train_OCR_Click(object sender, EventArgs e)
         {
-            ///步驟草稿
-            ///1. 讀取命名檔名(需有訓練檔命名規則)
-            Load_or_Create_OCR_Traing_File();
-            ///2. 讀取已有的訓練檔或者建立新檔
-            ///3. 遍力圖檔並加入訓練檔
-            ///4. 讀取設定條件
-            ///
-            /// 4.1建立OCR_handle
-            ///5. 開始訓練
-            ///6. 輸出訓練檔
+            if (!bgW_TraingOCR.IsBusy)
+            {
+                bgW_TraingOCR.RunWorkerAsync();
+            }
+        }
+
+        /// <summary>
+        /// 測試用按鈕 => Append_OCR_Image()
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Append_OCR_Image();
+        }
+
+        /// <summary>
+        /// 測試用按鈕 => Read_Training_Condition()
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Set_Training_Condition();
+        }
+
+        /// <summary>
+        /// 開啟進階特徵
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cB_Advance_Setting_Enable_CheckedChanged(object sender, EventArgs e)
+        {
+            gBx_Advance_Setting.Enabled = cB_Advance_Setting_Enable.Checked ? true : false;
+        }
+
+        private void cB_Basic_Feature_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checked_item = (CheckBox)sender;
+            switch (checked_item.Name)
+            {
+                case "cB_ratio":
+                    cLB_Advance_Setting.SetItemChecked(8, checked_item.Checked ? true : false);
+                    break;
+
+                case "cB_anisometry":
+                    cLB_Advance_Setting.SetItemChecked(9, checked_item.Checked ? true : false);
+                    break;
+
+                case "cB_convexity":
+                    cLB_Advance_Setting.SetItemChecked(17, checked_item.Checked ? true : false);
+                    break;
+            }
+        }
+
+        private void cLB_Advance_Setting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cLB_Advance_Setting.Items[cLB_Advance_Setting.SelectedIndex].ToString())
+            {
+                case "ratio":
+                    cB_ratio.Checked = cLB_Advance_Setting.GetItemChecked(cLB_Advance_Setting.SelectedIndex) ? true : false;
+                    break;
+
+                case "anisometry":
+                    cB_anisometry.Checked = cLB_Advance_Setting.GetItemChecked(cLB_Advance_Setting.SelectedIndex) ? true : false;
+                    break;
+
+                case "convexity":
+                    cB_convexity.Checked = cLB_Advance_Setting.GetItemChecked(cLB_Advance_Setting.SelectedIndex) ? true : false;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 控見控制設定(基礎區域)
+        /// Bug: 一開始選灰階值時，進階設定的選項不會同步
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rdo_region_feature_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton checked_item = (RadioButton)sender;
+            switch (checked_item.Name)
+            {
+                case "rdo_pixel_invar":
+                    rdo_pixel_invar.Checked = true;
+                    rdo_pixel_binary.Checked = false;
+                    rdo_gradient_8dir.Checked = false;
+                    //CheckListBox設定同步
+                    cLB_Advance_Setting.SetItemChecked(1, true);
+                    cLB_Advance_Setting.SetItemChecked(2, false);
+                    cLB_Advance_Setting.SetItemChecked(3, false);
+
+                    break;
+
+                case "rdo_pixel_binary":
+                    rdo_pixel_invar.Checked = false;
+                    rdo_pixel_binary.Checked = true;
+                    rdo_gradient_8dir.Checked = false;
+                    //CheckListBox設定同步
+                    cLB_Advance_Setting.SetItemChecked(1, false);
+                    cLB_Advance_Setting.SetItemChecked(2, true);
+                    cLB_Advance_Setting.SetItemChecked(3, false);
+                    break;
+
+                case "rdo_gradient_8dir":
+                    rdo_pixel_invar.Checked = false;
+                    rdo_pixel_binary.Checked = false;
+                    rdo_gradient_8dir.Checked = true;
+                    //CheckListBox設定同步
+                    cLB_Advance_Setting.SetItemChecked(1, false);
+                    cLB_Advance_Setting.SetItemChecked(2, false);
+                    cLB_Advance_Setting.SetItemChecked(3, true);
+                    break;
+            }
         }
 
         #endregion 控鍵
@@ -773,10 +934,130 @@ namespace OCR_training_program
         #region Method
 
         /// <summary>
+        /// 將OCR圖檔加入OCR訓練檔
+        /// </summary>
+        private void Append_OCR_Image()
+        {
+            //Log
+            Traing_State = $"Append_OCR_Image()";
+            bgW_TraingOCR.ReportProgress(1);
+
+            //遍歷圖檔
+            ///Step 1.取得所有檔案的資料夾
+            ///數字
+            List<string> Number_Char_dir = Directory.GetDirectories(Par.Char_Image_Folder + Par.Number_Image_Folder).ToList();
+            ///大寫
+            List<string> Upper_Case_Char_dir = Directory.GetDirectories(Par.Char_Image_Folder + Par.Uppercase_Char_Image_Folder).ToList();
+            ///小寫
+            List<string> Lower_Case_Char_dir = Directory.GetDirectories(Par.Char_Image_Folder + Par.Lowercase_Char_Image_Folder).ToList();
+            //加入訓練檔
+            ///Step 1
+            ///先判定訓練檔是否存在
+            //if (File.Exists())
+            //{
+            //}
+            ///Step 2: 將所有檔加入訓練檔
+            ///數字
+            for (int i = 0; i < Number_Char_dir.Count; i++)
+            {
+                string[] image_files = Directory.GetFiles(Number_Char_dir[i], "*.tiff|*.tif");
+                for (int j = 0; j < image_files.Length; j++)
+                {
+                    HOperatorSet.ReadImage(out HObject current_image, image_files[j]);
+                    HOperatorSet.BinaryThreshold(current_image, out HObject current_region, "max_separability", "dark", out HTuple current_Threshold);
+                    HOperatorSet.AppendOcrTrainf(current_region, current_image, Number_Char_dir[i].Substring(Number_Char_dir[i].LastIndexOf('\\') + 1), Par.OCR_Traing_FilePath + OCR_Training_FileName);
+                }
+            }
+            ///大寫字母
+            for (int i = 0; i < Upper_Case_Char_dir.Count; i++)
+            {
+                string[] image_files = Directory.GetFiles(Upper_Case_Char_dir[i], "*.tiff|*.tif");
+                for (int j = 0; j < image_files.Length; j++)
+                {
+                    HOperatorSet.ReadImage(out HObject current_image, image_files[j]);
+                    HOperatorSet.BinaryThreshold(current_image, out HObject current_region, "max_separability", "dark", out HTuple current_Threshold);
+                    HOperatorSet.AppendOcrTrainf(current_region, current_image, Upper_Case_Char_dir[i].Substring(Upper_Case_Char_dir[i].LastIndexOf('\\') + 1), Par.OCR_Traing_FilePath + OCR_Training_FileName);
+                }
+            }
+            ///小寫字母
+            for (int i = 0; i < Lower_Case_Char_dir.Count; i++)
+            {
+                string[] image_files = Directory.GetFiles(Lower_Case_Char_dir[i], "*.tiff|*.tif");
+                for (int j = 0; j < image_files.Length; j++)
+                {
+                    HOperatorSet.ReadImage(out HObject current_image, image_files[j]);
+                    HOperatorSet.BinaryThreshold(current_image, out HObject current_region, "max_separability", "dark", out HTuple current_Threshold);
+                    HOperatorSet.AppendOcrTrainf(current_region, current_image, Lower_Case_Char_dir[i].Substring(Lower_Case_Char_dir[i].LastIndexOf('\\') + 1), Par.OCR_Traing_FilePath + OCR_Training_FileName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 開始訓練OCR背景程序
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bgW_TraingOCR_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ///步驟草稿
+            ///1. 讀取命名檔名(需有訓練檔命名規則)
+            ///2. 讀取已有的訓練檔或者建立新檔
+            Load_or_Create_OCR_Traing_File();
+            ///3. 遍歷圖檔並加入訓練檔
+            Append_OCR_Image();
+            ///4. 讀取設定條件
+            Set_Training_Condition();
+            /// 4.1建立OCR_handle
+            Create_OCR_Handle();
+            ///5. 開始訓練
+            Train_OCR_Handle();
+            ///6. 輸出訓練檔
+            Output_OCR_OMC();
+            ///更新狀態(訓練完成)
+            ///Log
+            Traing_State = $"Finish Training";
+            bgW_TraingOCR.ReportProgress(1);
+        }
+
+        private void bgW_TraingOCR_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            switch (e.ProgressPercentage)
+            {
+                case 1: //紀錄Log
+                    logger.Info($"{Traing_State}");
+                    break;
+
+                case 2: //更新訓練狀態的UI(尚未建立)
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 建立OCR Handle
+        /// </summary>
+        private void Create_OCR_Handle()
+        {
+            //Log
+            Traing_State = $"Create_OCR_Handle()";
+            bgW_TraingOCR.ReportProgress(1);
+
+            HOperatorSet.CreateOcrClassMlp(8, 10, OCR_Training_Interpolate, OCR_Training_Feature, OCR_Training_Words, 215, "none", 100, 42, out OCR_Handle);
+        }
+
+        /// <summary>
         /// 建立，或者讀取已存在的OCR_File
         /// </summary>
         private void Load_or_Create_OCR_Traing_File()
         {
+            //Log
+            Traing_State = $"Load_or_Create_OCR_Traing_File()";
+            bgW_TraingOCR.ReportProgress(1);
+
+            //開始流程
             if (txt_Train_OCR_Filename.Text != string.Empty)
             {
                 OCR_Training_FileName = txt_Train_OCR_Filename.Text;
@@ -785,6 +1066,7 @@ namespace OCR_training_program
             {
                 MessageBox.Show("尚未建立OCR訓練檔的名稱");
             }
+            //OCR訓練檔路徑
             string file_path = Par.OCR_Traing_FilePath + OCR_Training_FileName;
             if (File.Exists(file_path))
             {
@@ -794,12 +1076,114 @@ namespace OCR_training_program
             else
             {
                 //建立OCR訓練檔 (待思考如何建立)
+                ///備註: Halcon似乎無法建立空白的 trf檔案
                 //只讀檔，不做任何動作
             }
+        }
+
+        /// <summary>
+        /// 輸出OCR以訓練好的訓練檔
+        /// </summary>
+        private void Output_OCR_OMC()
+        {
+            //Log
+            Traing_State = $"Output_OCR_OMC()";
+            bgW_TraingOCR.ReportProgress(1);
+            HOperatorSet.WriteOcrClassMlp(OCR_Handle, "C:/Users/LouisDing/Desktop/測試訓練檔.omc");
+        }
+
+        /// <summary>
+        /// 讀取設定條件
+        /// </summary>
+        private void Set_Training_Condition()
+        {
+            //Log
+            Traing_State = $"Set_Training_Condition()";
+            bgW_TraingOCR.ReportProgress(1);
+            ///讀取訓練模式
+            switch (cBx_Interpolate.SelectedIndex)
+            {
+                case (int)Training_Interpolate_Option.constant:
+                    OCR_Training_Interpolate = "constant";
+                    break;
+
+                case (int)Training_Interpolate_Option.nearest_neighbor:
+                    OCR_Training_Interpolate = "nearest_neighbor";
+                    break;
+
+                case (int)Training_Interpolate_Option.bilinear:
+                    OCR_Training_Interpolate = "bilinear";
+                    break;
+
+                case (int)Training_Interpolate_Option.weighted:
+                    OCR_Training_Interpolate = "weighted";
+                    break;
+            }
+            ///讀取基礎特徵
+            ///Step 1:讀取區域設定
+            ///gBx_Basic_Setting.Controls
+            ///Step 2: 讀取基礎特徵設定
+            ///在想一下如何優化
+            //radiobutton
+            Basic_Region_Feature.Add(rdo_pixel_invar.Checked ? "pixel_invar" : null);
+            Basic_Region_Feature.Add(rdo_pixel_binary.Checked ? "pixel_binary" : null);
+            Basic_Region_Feature.Add(rdo_gradient_8dir.Checked ? "gradient_8dir" : null);
+            //checkbox
+            Basic_Region_Feature.Add(cB_ratio.Checked ? "ratio" : null);
+            Basic_Region_Feature.Add(cB_anisometry.Checked ? "anisometry" : null);
+            Basic_Region_Feature.Add(cB_convexity.Checked ? "convexity" : null);
+            Basic_Region_Feature.RemoveAll(x => x == null);
+            ///讀取進階特徵
+            //先確認是否有開啟進階特徵，有才要讀取
+            if (cB_Advance_Setting_Enable.Checked)
+            {
+                for (int i = 0; i < cLB_Advance_Setting.CheckedItems.Count; i++)
+                {
+                    Advance_Region_Feature.Add(cLB_Advance_Setting.CheckedItems[i].ToString());
+                }
+            }
+            List<string> Total_Region_Feature = new List<string>();
+            Total_Region_Feature.AddRange(Basic_Region_Feature);
+            Total_Region_Feature.AddRange(Advance_Region_Feature);
+            Total_Region_Feature = Total_Region_Feature.Distinct().ToList();//刪除重複值
+            //將訓練特徵，寫入Halcon Library
+            for (int i = 0; i < Total_Region_Feature.Count; i++)
+            {
+                OCR_Training_Feature[i] = Total_Region_Feature[i].ToString();
+            }
+            //將要訓練的字，寫入Halcon Library
+            for (int i = 0; i < Char_Array.Count; i++)
+            {
+                OCR_Training_Words[i] = Char_Array[i];
+            }
+        }
+
+        /// <summary>
+        /// 訓練OCR
+        /// </summary>
+        private void Train_OCR_Handle()
+        {
+            //Log
+            Traing_State = $"Train_OCR_Handle()";
+            bgW_TraingOCR.ReportProgress(1);
+
+            HOperatorSet.TrainfOcrClassMlp(OCR_Handle, Par.OCR_Traing_FilePath + OCR_Training_FileName, 200, 1, 0.01, out Training_Error, out Training_Error_Log);
         }
 
         #endregion Method
 
         #endregion 字元訓練
+
+        #region 辨識測試
+
+        #region 控鍵
+
+        private void btn_Load_TestFolder_Click(object sender, EventArgs e)
+        {
+        }
+
+        #endregion 控鍵
+
+        #endregion 辨識測試
     }
 }

@@ -69,16 +69,18 @@ namespace OCR_training_program
             this.lbl_Compare_text = new System.Windows.Forms.Label();
             this.btn_load_image_folder = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cB_Advance_Setting_Enable = new System.Windows.Forms.CheckBox();
+            this.btn_Load_Traing_File = new System.Windows.Forms.Button();
             this.lbl_Interpolate = new System.Windows.Forms.Label();
             this.cBx_Interpolate = new System.Windows.Forms.ComboBox();
             this.gBx_Basic_Setting = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.rdo_pixel_binary = new System.Windows.Forms.RadioButton();
+            this.rdo_pixel_invar = new System.Windows.Forms.RadioButton();
+            this.rdo_gradient_8dir = new System.Windows.Forms.RadioButton();
+            this.cB_ratio = new System.Windows.Forms.CheckBox();
+            this.cB_anisometry = new System.Windows.Forms.CheckBox();
+            this.cB_convexity = new System.Windows.Forms.CheckBox();
             this.gBx_Advance_Setting = new System.Windows.Forms.GroupBox();
             this.cLB_Advance_Setting = new System.Windows.Forms.CheckedListBox();
             this.txt_Train_OCR_Filename = new System.Windows.Forms.TextBox();
@@ -86,8 +88,52 @@ namespace OCR_training_program
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btn_Start_Train_OCR = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cbo_Comparison_Condition = new System.Windows.Forms.ComboBox();
+            this.lbl_Comparison_Condition = new System.Windows.Forms.Label();
+            this.lbl_plan_A_Yield = new System.Windows.Forms.Label();
+            this.lbl_plan_A_NG = new System.Windows.Forms.Label();
+            this.lbl_plan_A_OK = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.btn_Reset = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.txt_Comparison_Words = new System.Windows.Forms.TextBox();
+            this.lbl_Comparison_Words = new System.Windows.Forms.Label();
+            this.hSmartWindowControl1 = new HalconDotNet.HSmartWindowControl();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox4 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox5 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox6 = new System.Windows.Forms.MaskedTextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btn_Load_TestFolder = new System.Windows.Forms.Button();
             this.bgW_Classify = new System.ComponentModel.BackgroundWorker();
-            this.btn_Load_Traing_File = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.bgW_TraingOCR = new System.ComponentModel.BackgroundWorker();
             this.tabCon_Char_Classifier.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -95,6 +141,8 @@ namespace OCR_training_program
             this.gBx_Basic_Setting.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.gBx_Advance_Setting.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabCon_Char_Classifier
@@ -102,7 +150,7 @@ namespace OCR_training_program
             this.tabCon_Char_Classifier.Controls.Add(this.tabPage1);
             this.tabCon_Char_Classifier.Controls.Add(this.tabPage2);
             this.tabCon_Char_Classifier.Controls.Add(this.tabPage3);
-            this.tabCon_Char_Classifier.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabCon_Char_Classifier.Font = new System.Drawing.Font("Arial", 13.8F);
             this.tabCon_Char_Classifier.Location = new System.Drawing.Point(13, 12);
             this.tabCon_Char_Classifier.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabCon_Char_Classifier.Name = "tabCon_Char_Classifier";
@@ -595,6 +643,7 @@ namespace OCR_training_program
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cB_Advance_Setting_Enable);
             this.tabPage2.Controls.Add(this.btn_Load_Traing_File);
             this.tabPage2.Controls.Add(this.lbl_Interpolate);
             this.tabPage2.Controls.Add(this.cBx_Interpolate);
@@ -613,6 +662,28 @@ namespace OCR_training_program
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "訓練";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cB_Advance_Setting_Enable
+            // 
+            this.cB_Advance_Setting_Enable.AutoSize = true;
+            this.cB_Advance_Setting_Enable.Location = new System.Drawing.Point(333, 146);
+            this.cB_Advance_Setting_Enable.Name = "cB_Advance_Setting_Enable";
+            this.cB_Advance_Setting_Enable.Size = new System.Drawing.Size(178, 31);
+            this.cB_Advance_Setting_Enable.TabIndex = 9;
+            this.cB_Advance_Setting_Enable.Text = "開啟進階特徵";
+            this.cB_Advance_Setting_Enable.UseVisualStyleBackColor = true;
+            this.cB_Advance_Setting_Enable.CheckedChanged += new System.EventHandler(this.cB_Advance_Setting_Enable_CheckedChanged);
+            // 
+            // btn_Load_Traing_File
+            // 
+            this.btn_Load_Traing_File.Location = new System.Drawing.Point(8, 10);
+            this.btn_Load_Traing_File.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Load_Traing_File.Name = "btn_Load_Traing_File";
+            this.btn_Load_Traing_File.Size = new System.Drawing.Size(113, 46);
+            this.btn_Load_Traing_File.TabIndex = 8;
+            this.btn_Load_Traing_File.Text = "Load";
+            this.btn_Load_Traing_File.UseVisualStyleBackColor = true;
+            this.btn_Load_Traing_File.Click += new System.EventHandler(this.btn_Load_Traing_File_Click);
             // 
             // lbl_Interpolate
             // 
@@ -651,12 +722,12 @@ namespace OCR_training_program
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.radioButton2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.radioButton1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.radioButton3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox3, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.rdo_pixel_binary, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.rdo_pixel_invar, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rdo_gradient_8dir, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cB_ratio, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cB_anisometry, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cB_convexity, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 30);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -667,87 +738,97 @@ namespace OCR_training_program
             this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 130);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // radioButton2
+            // rdo_pixel_binary
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton2.Location = new System.Drawing.Point(3, 46);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(129, 37);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "字符區域";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rdo_pixel_binary.AutoSize = true;
+            this.rdo_pixel_binary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdo_pixel_binary.Location = new System.Drawing.Point(3, 46);
+            this.rdo_pixel_binary.Name = "rdo_pixel_binary";
+            this.rdo_pixel_binary.Size = new System.Drawing.Size(129, 37);
+            this.rdo_pixel_binary.TabIndex = 1;
+            this.rdo_pixel_binary.Tag = "";
+            this.rdo_pixel_binary.Text = "字符區域";
+            this.rdo_pixel_binary.UseVisualStyleBackColor = true;
+            this.rdo_pixel_binary.Click += new System.EventHandler(this.rdo_region_feature_CheckedChanged);
             // 
-            // radioButton1
+            // rdo_pixel_invar
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton1.Location = new System.Drawing.Point(3, 3);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(129, 37);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "灰階值";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rdo_pixel_invar.AutoSize = true;
+            this.rdo_pixel_invar.Checked = true;
+            this.rdo_pixel_invar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdo_pixel_invar.Location = new System.Drawing.Point(3, 3);
+            this.rdo_pixel_invar.Name = "rdo_pixel_invar";
+            this.rdo_pixel_invar.Size = new System.Drawing.Size(129, 37);
+            this.rdo_pixel_invar.TabIndex = 0;
+            this.rdo_pixel_invar.TabStop = true;
+            this.rdo_pixel_invar.Tag = "";
+            this.rdo_pixel_invar.Text = "灰階值";
+            this.rdo_pixel_invar.UseVisualStyleBackColor = true;
+            this.rdo_pixel_invar.Click += new System.EventHandler(this.rdo_region_feature_CheckedChanged);
             // 
-            // radioButton3
+            // rdo_gradient_8dir
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton3.Location = new System.Drawing.Point(3, 89);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(129, 38);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "梯度";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rdo_gradient_8dir.AutoSize = true;
+            this.rdo_gradient_8dir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdo_gradient_8dir.Location = new System.Drawing.Point(3, 89);
+            this.rdo_gradient_8dir.Name = "rdo_gradient_8dir";
+            this.rdo_gradient_8dir.Size = new System.Drawing.Size(129, 38);
+            this.rdo_gradient_8dir.TabIndex = 2;
+            this.rdo_gradient_8dir.Tag = "";
+            this.rdo_gradient_8dir.Text = "梯度";
+            this.rdo_gradient_8dir.UseVisualStyleBackColor = true;
+            this.rdo_gradient_8dir.Click += new System.EventHandler(this.rdo_region_feature_CheckedChanged);
             // 
-            // checkBox1
+            // cB_ratio
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Location = new System.Drawing.Point(138, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(129, 37);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "比例";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cB_ratio.AutoSize = true;
+            this.cB_ratio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cB_ratio.Location = new System.Drawing.Point(138, 3);
+            this.cB_ratio.Name = "cB_ratio";
+            this.cB_ratio.Size = new System.Drawing.Size(129, 37);
+            this.cB_ratio.TabIndex = 3;
+            this.cB_ratio.Text = "比例";
+            this.cB_ratio.UseVisualStyleBackColor = true;
+            this.cB_ratio.CheckedChanged += new System.EventHandler(this.cB_Basic_Feature_CheckedChanged);
             // 
-            // checkBox2
+            // cB_anisometry
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox2.Location = new System.Drawing.Point(138, 46);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(129, 37);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "異向性";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cB_anisometry.AutoSize = true;
+            this.cB_anisometry.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cB_anisometry.Location = new System.Drawing.Point(138, 46);
+            this.cB_anisometry.Name = "cB_anisometry";
+            this.cB_anisometry.Size = new System.Drawing.Size(129, 37);
+            this.cB_anisometry.TabIndex = 4;
+            this.cB_anisometry.Text = "異向性";
+            this.cB_anisometry.UseVisualStyleBackColor = true;
+            this.cB_anisometry.CheckedChanged += new System.EventHandler(this.cB_Basic_Feature_CheckedChanged);
             // 
-            // checkBox3
+            // cB_convexity
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox3.Location = new System.Drawing.Point(138, 89);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(129, 38);
-            this.checkBox3.TabIndex = 5;
-            this.checkBox3.Text = "凸面";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.cB_convexity.AutoSize = true;
+            this.cB_convexity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cB_convexity.Location = new System.Drawing.Point(138, 89);
+            this.cB_convexity.Name = "cB_convexity";
+            this.cB_convexity.Size = new System.Drawing.Size(129, 38);
+            this.cB_convexity.TabIndex = 5;
+            this.cB_convexity.Text = "凸面";
+            this.cB_convexity.UseVisualStyleBackColor = true;
+            this.cB_convexity.CheckedChanged += new System.EventHandler(this.cB_Basic_Feature_CheckedChanged);
             // 
             // gBx_Advance_Setting
             // 
             this.gBx_Advance_Setting.Controls.Add(this.cLB_Advance_Setting);
-            this.gBx_Advance_Setting.Location = new System.Drawing.Point(330, 132);
+            this.gBx_Advance_Setting.Enabled = false;
+            this.gBx_Advance_Setting.Location = new System.Drawing.Point(330, 183);
             this.gBx_Advance_Setting.Name = "gBx_Advance_Setting";
-            this.gBx_Advance_Setting.Size = new System.Drawing.Size(228, 308);
+            this.gBx_Advance_Setting.Size = new System.Drawing.Size(228, 257);
             this.gBx_Advance_Setting.TabIndex = 4;
             this.gBx_Advance_Setting.TabStop = false;
             this.gBx_Advance_Setting.Text = "進階特徵";
             // 
             // cLB_Advance_Setting
             // 
+            this.cLB_Advance_Setting.CheckOnClick = true;
             this.cLB_Advance_Setting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cLB_Advance_Setting.FormattingEnabled = true;
             this.cLB_Advance_Setting.Items.AddRange(new object[] {
@@ -782,8 +863,9 @@ namespace OCR_training_program
             "chord_histo"});
             this.cLB_Advance_Setting.Location = new System.Drawing.Point(3, 30);
             this.cLB_Advance_Setting.Name = "cLB_Advance_Setting";
-            this.cLB_Advance_Setting.Size = new System.Drawing.Size(222, 275);
+            this.cLB_Advance_Setting.Size = new System.Drawing.Size(222, 224);
             this.cLB_Advance_Setting.TabIndex = 0;
+            this.cLB_Advance_Setting.SelectedIndexChanged += new System.EventHandler(this.cLB_Advance_Setting_SelectedIndexChanged);
             // 
             // txt_Train_OCR_Filename
             // 
@@ -824,6 +906,25 @@ namespace OCR_training_program
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.cbo_Comparison_Condition);
+            this.tabPage3.Controls.Add(this.lbl_Comparison_Condition);
+            this.tabPage3.Controls.Add(this.lbl_plan_A_Yield);
+            this.tabPage3.Controls.Add(this.lbl_plan_A_NG);
+            this.tabPage3.Controls.Add(this.lbl_plan_A_OK);
+            this.tabPage3.Controls.Add(this.label14);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.label16);
+            this.tabPage3.Controls.Add(this.btn_Reset);
+            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.button3);
+            this.tabPage3.Controls.Add(this.txt_Comparison_Words);
+            this.tabPage3.Controls.Add(this.lbl_Comparison_Words);
+            this.tabPage3.Controls.Add(this.hSmartWindowControl1);
+            this.tabPage3.Controls.Add(this.groupBox2);
+            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.btn_Load_TestFolder);
             this.tabPage3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage3.Location = new System.Drawing.Point(4, 35);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -832,7 +933,496 @@ namespace OCR_training_program
             this.tabPage3.Size = new System.Drawing.Size(1023, 499);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "測試";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cbo_Comparison_Condition
+            // 
+            this.cbo_Comparison_Condition.FormattingEnabled = true;
+            this.cbo_Comparison_Condition.Items.AddRange(new object[] {
+            "數字與英文字母",
+            "數字與大寫英文",
+            "數字與小寫英文",
+            "只有英文(含大小寫)",
+            "只有數字",
+            "排除特定字元"});
+            this.cbo_Comparison_Condition.Location = new System.Drawing.Point(140, 94);
+            this.cbo_Comparison_Condition.Name = "cbo_Comparison_Condition";
+            this.cbo_Comparison_Condition.Size = new System.Drawing.Size(253, 34);
+            this.cbo_Comparison_Condition.TabIndex = 54;
+            // 
+            // lbl_Comparison_Condition
+            // 
+            this.lbl_Comparison_Condition.AutoSize = true;
+            this.lbl_Comparison_Condition.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Comparison_Condition.Location = new System.Drawing.Point(20, 97);
+            this.lbl_Comparison_Condition.Name = "lbl_Comparison_Condition";
+            this.lbl_Comparison_Condition.Size = new System.Drawing.Size(122, 27);
+            this.lbl_Comparison_Condition.TabIndex = 53;
+            this.lbl_Comparison_Condition.Text = "比對條件 :";
+            // 
+            // lbl_plan_A_Yield
+            // 
+            this.lbl_plan_A_Yield.AutoSize = true;
+            this.lbl_plan_A_Yield.Location = new System.Drawing.Point(489, 353);
+            this.lbl_plan_A_Yield.Name = "lbl_plan_A_Yield";
+            this.lbl_plan_A_Yield.Size = new System.Drawing.Size(25, 27);
+            this.lbl_plan_A_Yield.TabIndex = 52;
+            this.lbl_plan_A_Yield.Text = "0";
+            // 
+            // lbl_plan_A_NG
+            // 
+            this.lbl_plan_A_NG.AutoSize = true;
+            this.lbl_plan_A_NG.Location = new System.Drawing.Point(303, 353);
+            this.lbl_plan_A_NG.Name = "lbl_plan_A_NG";
+            this.lbl_plan_A_NG.Size = new System.Drawing.Size(25, 27);
+            this.lbl_plan_A_NG.TabIndex = 51;
+            this.lbl_plan_A_NG.Text = "0";
+            // 
+            // lbl_plan_A_OK
+            // 
+            this.lbl_plan_A_OK.AutoSize = true;
+            this.lbl_plan_A_OK.Location = new System.Drawing.Point(141, 353);
+            this.lbl_plan_A_OK.Name = "lbl_plan_A_OK";
+            this.lbl_plan_A_OK.Size = new System.Drawing.Size(25, 27);
+            this.lbl_plan_A_OK.TabIndex = 50;
+            this.lbl_plan_A_OK.Text = "0";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(387, 353);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(67, 27);
+            this.label14.TabIndex = 49;
+            this.label14.Text = "Ratio";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(217, 353);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(48, 27);
+            this.label15.TabIndex = 48;
+            this.label15.Text = "NG";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(48, 353);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 27);
+            this.label16.TabIndex = 47;
+            this.label16.Text = "OK";
+            // 
+            // btn_Reset
+            // 
+            this.btn_Reset.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.btn_Reset.Location = new System.Drawing.Point(788, 12);
+            this.btn_Reset.Name = "btn_Reset";
+            this.btn_Reset.Size = new System.Drawing.Size(104, 40);
+            this.btn_Reset.TabIndex = 46;
+            this.btn_Reset.Text = "Reset";
+            this.btn_Reset.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.button1.Location = new System.Drawing.Point(614, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(81, 40);
+            this.button1.TabIndex = 45;
+            this.button1.Text = "Run";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.button2.Location = new System.Drawing.Point(701, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(81, 40);
+            this.button2.TabIndex = 44;
+            this.button2.Text = "Trig";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.button3.Location = new System.Drawing.Point(482, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(125, 40);
+            this.button3.TabIndex = 43;
+            this.button3.Text = "Connect";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // txt_Comparison_Words
+            // 
+            this.txt_Comparison_Words.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Comparison_Words.Location = new System.Drawing.Point(140, 57);
+            this.txt_Comparison_Words.Name = "txt_Comparison_Words";
+            this.txt_Comparison_Words.Size = new System.Drawing.Size(253, 34);
+            this.txt_Comparison_Words.TabIndex = 42;
+            this.txt_Comparison_Words.Text = "L4V1B8.L6";
+            // 
+            // lbl_Comparison_Words
+            // 
+            this.lbl_Comparison_Words.AutoSize = true;
+            this.lbl_Comparison_Words.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Comparison_Words.Location = new System.Drawing.Point(20, 61);
+            this.lbl_Comparison_Words.Name = "lbl_Comparison_Words";
+            this.lbl_Comparison_Words.Size = new System.Drawing.Size(122, 27);
+            this.lbl_Comparison_Words.TabIndex = 41;
+            this.lbl_Comparison_Words.Text = "比對字串 :";
+            // 
+            // hSmartWindowControl1
+            // 
+            this.hSmartWindowControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.hSmartWindowControl1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.hSmartWindowControl1.HDoubleClickToFitContent = true;
+            this.hSmartWindowControl1.HDrawingObjectsModifier = HalconDotNet.HSmartWindowControl.DrawingObjectsModifier.None;
+            this.hSmartWindowControl1.HImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
+            this.hSmartWindowControl1.HKeepAspectRatio = true;
+            this.hSmartWindowControl1.HMoveContent = true;
+            this.hSmartWindowControl1.HZoomContent = HalconDotNet.HSmartWindowControl.ZoomContent.WheelForwardZoomsIn;
+            this.hSmartWindowControl1.Location = new System.Drawing.Point(567, 104);
+            this.hSmartWindowControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.hSmartWindowControl1.Name = "hSmartWindowControl1";
+            this.hSmartWindowControl1.Size = new System.Drawing.Size(445, 159);
+            this.hSmartWindowControl1.TabIndex = 40;
+            this.hSmartWindowControl1.WindowSize = new System.Drawing.Size(445, 159);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.checkBox4);
+            this.groupBox2.Controls.Add(this.checkBox5);
+            this.groupBox2.Controls.Add(this.checkBox6);
+            this.groupBox2.Controls.Add(this.checkBox7);
+            this.groupBox2.Controls.Add(this.checkBox8);
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.checkBox9);
+            this.groupBox2.Controls.Add(this.maskedTextBox1);
+            this.groupBox2.Controls.Add(this.maskedTextBox2);
+            this.groupBox2.Controls.Add(this.maskedTextBox3);
+            this.groupBox2.Controls.Add(this.maskedTextBox4);
+            this.groupBox2.Controls.Add(this.maskedTextBox5);
+            this.groupBox2.Controls.Add(this.maskedTextBox6);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.button4);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Location = new System.Drawing.Point(15, 136);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(548, 190);
+            this.groupBox2.TabIndex = 39;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "OCR設定";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(336, 141);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 27);
+            this.label4.TabIndex = 55;
+            this.label4.Text = "Min";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(336, 101);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(50, 27);
+            this.label5.TabIndex = 54;
+            this.label5.Text = "Min";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(336, 64);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 27);
+            this.label6.TabIndex = 53;
+            this.label6.Text = "Min";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(116, 29);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 27);
+            this.label7.TabIndex = 50;
+            this.label7.Text = "字元擋 : ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(133, 141);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 27);
+            this.label8.TabIndex = 52;
+            this.label8.Text = "Max";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(133, 101);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(55, 27);
+            this.label9.TabIndex = 51;
+            this.label9.Text = "Max";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(133, 64);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 27);
+            this.label10.TabIndex = 50;
+            this.label10.Text = "Max";
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(454, 139);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(83, 31);
+            this.checkBox4.TabIndex = 49;
+            this.checkBox4.Text = "Auto";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Checked = true;
+            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox5.Location = new System.Drawing.Point(454, 99);
+            this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(83, 31);
+            this.checkBox5.TabIndex = 48;
+            this.checkBox5.Text = "Auto";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Checked = true;
+            this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox6.Location = new System.Drawing.Point(454, 62);
+            this.checkBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(83, 31);
+            this.checkBox6.TabIndex = 47;
+            this.checkBox6.Text = "Auto";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Checked = true;
+            this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox7.Location = new System.Drawing.Point(252, 139);
+            this.checkBox7.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(83, 31);
+            this.checkBox7.TabIndex = 46;
+            this.checkBox7.Text = "Auto";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Checked = true;
+            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox8.Location = new System.Drawing.Point(252, 99);
+            this.checkBox8.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(83, 31);
+            this.checkBox8.TabIndex = 45;
+            this.checkBox8.Text = "Auto";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Universal_0-9A-Z_NoRej.occ",
+            "Industrial_0-9A-Z_NoRej.omc",
+            "SFCompactText-RegularG2_0-9A-Z.omc"});
+            this.comboBox1.Location = new System.Drawing.Point(227, 26);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(228, 34);
+            this.comboBox1.TabIndex = 35;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Checked = true;
+            this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox9.Location = new System.Drawing.Point(252, 62);
+            this.checkBox9.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(83, 31);
+            this.checkBox9.TabIndex = 44;
+            this.checkBox9.Text = "Auto";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Enabled = false;
+            this.maskedTextBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.maskedTextBox1.Location = new System.Drawing.Point(391, 60);
+            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox1.Mask = "999";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.PromptChar = ' ';
+            this.maskedTextBox1.Size = new System.Drawing.Size(48, 34);
+            this.maskedTextBox1.TabIndex = 17;
+            this.maskedTextBox1.Text = "0";
+            // 
+            // maskedTextBox2
+            // 
+            this.maskedTextBox2.Enabled = false;
+            this.maskedTextBox2.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.maskedTextBox2.Location = new System.Drawing.Point(391, 137);
+            this.maskedTextBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox2.Mask = "999";
+            this.maskedTextBox2.Name = "maskedTextBox2";
+            this.maskedTextBox2.PromptChar = ' ';
+            this.maskedTextBox2.Size = new System.Drawing.Size(48, 34);
+            this.maskedTextBox2.TabIndex = 18;
+            this.maskedTextBox2.Text = "0";
+            // 
+            // maskedTextBox3
+            // 
+            this.maskedTextBox3.Enabled = false;
+            this.maskedTextBox3.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.maskedTextBox3.Location = new System.Drawing.Point(391, 97);
+            this.maskedTextBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox3.Mask = "999";
+            this.maskedTextBox3.Name = "maskedTextBox3";
+            this.maskedTextBox3.PromptChar = ' ';
+            this.maskedTextBox3.Size = new System.Drawing.Size(48, 34);
+            this.maskedTextBox3.TabIndex = 16;
+            this.maskedTextBox3.Text = "0";
+            // 
+            // maskedTextBox4
+            // 
+            this.maskedTextBox4.Enabled = false;
+            this.maskedTextBox4.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.maskedTextBox4.Location = new System.Drawing.Point(193, 60);
+            this.maskedTextBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox4.Mask = "999";
+            this.maskedTextBox4.Name = "maskedTextBox4";
+            this.maskedTextBox4.PromptChar = ' ';
+            this.maskedTextBox4.Size = new System.Drawing.Size(48, 34);
+            this.maskedTextBox4.TabIndex = 14;
+            this.maskedTextBox4.Text = "0";
+            // 
+            // maskedTextBox5
+            // 
+            this.maskedTextBox5.Enabled = false;
+            this.maskedTextBox5.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.maskedTextBox5.Location = new System.Drawing.Point(193, 137);
+            this.maskedTextBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox5.Mask = "999";
+            this.maskedTextBox5.Name = "maskedTextBox5";
+            this.maskedTextBox5.PromptChar = ' ';
+            this.maskedTextBox5.Size = new System.Drawing.Size(48, 34);
+            this.maskedTextBox5.TabIndex = 15;
+            this.maskedTextBox5.Text = "0";
+            // 
+            // maskedTextBox6
+            // 
+            this.maskedTextBox6.Enabled = false;
+            this.maskedTextBox6.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.maskedTextBox6.Location = new System.Drawing.Point(193, 97);
+            this.maskedTextBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox6.Mask = "999";
+            this.maskedTextBox6.Name = "maskedTextBox6";
+            this.maskedTextBox6.PromptChar = ' ';
+            this.maskedTextBox6.Size = new System.Drawing.Size(48, 34);
+            this.maskedTextBox6.TabIndex = 13;
+            this.maskedTextBox6.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 64);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(91, 27);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "字高 ：";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(10, 141);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(132, 27);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "筆畫寬度：";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(8, 26);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(100, 36);
+            this.button4.TabIndex = 25;
+            this.button4.Text = "建立OCR";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(10, 101);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(74, 27);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "字寬 :";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(110, 15);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(354, 34);
+            this.textBox1.TabIndex = 38;
+            this.textBox1.Text = "C:\\Users\\LouisDing\\Desktop\\Work\\TSMC\\20220629_修改過的訓練檔 _字母B\\L4V1B8.L6_2228\\Station" +
+    "A\\Lot6";
+            // 
+            // btn_Load_TestFolder
+            // 
+            this.btn_Load_TestFolder.Font = new System.Drawing.Font("Arial", 13.8F);
+            this.btn_Load_TestFolder.Location = new System.Drawing.Point(10, 12);
+            this.btn_Load_TestFolder.Name = "btn_Load_TestFolder";
+            this.btn_Load_TestFolder.Size = new System.Drawing.Size(92, 40);
+            this.btn_Load_TestFolder.TabIndex = 37;
+            this.btn_Load_TestFolder.Text = "Load";
+            this.btn_Load_TestFolder.UseVisualStyleBackColor = true;
+            this.btn_Load_TestFolder.Click += new System.EventHandler(this.btn_Load_TestFolder_Click);
             // 
             // bgW_Classify
             // 
@@ -840,26 +1430,43 @@ namespace OCR_training_program
             this.bgW_Classify.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_Classify_DoWork);
             this.bgW_Classify.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_Classify_ProgressChanged);
             // 
-            // btn_Load_Traing_File
+            // button5
             // 
-            this.btn_Load_Traing_File.Location = new System.Drawing.Point(8, 10);
-            this.btn_Load_Traing_File.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_Load_Traing_File.Name = "btn_Load_Traing_File";
-            this.btn_Load_Traing_File.Size = new System.Drawing.Size(113, 46);
-            this.btn_Load_Traing_File.TabIndex = 8;
-            this.btn_Load_Traing_File.Text = "Load";
-            this.btn_Load_Traing_File.UseVisualStyleBackColor = true;
-            this.btn_Load_Traing_File.Click += new System.EventHandler(this.btn_Load_Traing_File_Click);
+            this.button5.Location = new System.Drawing.Point(1050, 47);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(1050, 72);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // bgW_TraingOCR
+            // 
+            this.bgW_TraingOCR.WorkerReportsProgress = true;
+            this.bgW_TraingOCR.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_TraingOCR_DoWork);
+            this.bgW_TraingOCR.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_TraingOCR_ProgressChanged);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1051, 560);
+            this.ClientSize = new System.Drawing.Size(1143, 560);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.tabCon_Char_Classifier);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
-            this.Text = "OCR Training Program";
+            this.Text = "OCR 訓練程式";
             this.Load += new System.EventHandler(this.Main_Load);
             this.tabCon_Char_Classifier.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -872,6 +1479,10 @@ namespace OCR_training_program
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.gBx_Advance_Setting.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -930,13 +1541,59 @@ namespace OCR_training_program
         private System.Windows.Forms.ComboBox cBx_Interpolate;
         private System.Windows.Forms.GroupBox gBx_Basic_Setting;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.RadioButton rdo_pixel_binary;
+        private System.Windows.Forms.RadioButton rdo_pixel_invar;
+        private System.Windows.Forms.RadioButton rdo_gradient_8dir;
+        private System.Windows.Forms.CheckBox cB_ratio;
+        private System.Windows.Forms.CheckBox cB_anisometry;
+        private System.Windows.Forms.CheckBox cB_convexity;
         private System.Windows.Forms.Button btn_Load_Traing_File;
+        private System.Windows.Forms.Label lbl_plan_A_Yield;
+        private System.Windows.Forms.Label lbl_plan_A_NG;
+        private System.Windows.Forms.Label lbl_plan_A_OK;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btn_Reset;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txt_Comparison_Words;
+        private System.Windows.Forms.Label lbl_Comparison_Words;
+        private HalconDotNet.HSmartWindowControl hSmartWindowControl1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox4;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox5;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox6;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btn_Load_TestFolder;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox cB_Advance_Setting_Enable;
+        private System.Windows.Forms.ComboBox cbo_Comparison_Condition;
+        private System.Windows.Forms.Label lbl_Comparison_Condition;
+        private System.ComponentModel.BackgroundWorker bgW_TraingOCR;
     }
 }
 
