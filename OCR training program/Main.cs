@@ -50,7 +50,7 @@ namespace OCR_training_program
             //進階特徵_設定初始化
             cLB_Advance_Setting.SetItemChecked(1, true);
             //比對條件_設定初始化
-            cbo_Comparison_Condition.SelectedIndex = 0;
+            cbo_Identification_Restrictions.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -297,10 +297,24 @@ namespace OCR_training_program
         private void btn_Connect_Click(object sender, EventArgs e)
         {
             Folder_Path = txt_file_path.Text;
-            if (Directory.Exists(Folder_Path))
+            if (btn_Connect.Text == "Disconnect")
             {
-                hv_AcqHandle.Dispose();
-                HOperatorSet.OpenFramegrabber("File", 1, 1, 0, 0, 0, 0, "default", -1, "default", -1, "false", Folder_Path, "default", 1, -1, out hv_AcqHandle);
+                HOperatorSet.CloseFramegrabber(hv_AcqHandle);
+                btn_Connect.Text = "Connect";
+            }
+            else
+            {
+                if (Directory.Exists(Folder_Path))
+                {
+                    hv_AcqHandle.Dispose();
+                    HOperatorSet.OpenFramegrabber("File", 1, 1, 0, 0, 0, 0, "default", -1, "default", -1, "false", Folder_Path, "default", 1, -1, out hv_AcqHandle);
+                }
+                else
+                {
+                    MessageBox.Show("資料夾不存在!");
+                    return;
+                }
+                btn_Connect.Text = "Disconnect";
             }
 
             DirectoryInfo di = new DirectoryInfo(Folder_Path);
@@ -1178,18 +1192,177 @@ namespace OCR_training_program
 
         #region 欄位
 
+        private string compare_string = string.Empty;
+        private double detect_Correct_Ratio;
+        private int detect_NG;
+        private int detect_OK;
+        private string detect_words = string.Empty;
+        private string Exclude_Chars = string.Empty;
+        private List<string> ocr_detect_world = new List<string>();
+        private string OCR_Expression = string.Empty;
         private int Test_Folder_File_Count;
         private string Test_Folder_Path = string.Empty;
+        //蒐集辨識後的字元使用
 
         #endregion 欄位
 
         #region Halcon欄位
 
+        private HObject ho_Test_OriImage = new HObject();
         private HTuple hv_OCRTest_AcqHandle = new HTuple();
+        private HTuple Test_OCR_handle = new HTuple();
+        private HTuple Test_OCR_model = new HTuple();
 
         #endregion Halcon欄位
 
         #region 控鍵
+
+        /// <summary>
+        /// 執行OCR辨識，運行測試
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bgW_RunTestOCR_DoWork(object sender, DoWorkEventArgs e)
+        {
+            for (int i = 0; i < Test_Folder_File_Count; i++)
+            {
+                HOperatorSet.GrabImage(out ho_Test_OriImage, hv_OCRTest_AcqHandle);
+                Thread.Sleep(50);
+                bgW_RunTestOCR.ReportProgress(0); //讀取圖片
+                Test_OCR();
+                bgW_RunTestOCR.ReportProgress(1); //刷新結果
+                Refresh_Result();
+                //Write_Report(); //辨識結果紀錄(思考是否建立)
+                Thread.Sleep(50);
+            }
+        }
+
+        /// <summary>
+        /// OCR辨識，運行測試(階段動作)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bgW_RunTestOCR_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            switch (e.ProgressPercentage)
+            {
+                case 0: //顯示當前的辨識影像
+                    Show_Test_Current_Image();
+                    break;
+
+                case 1: //更新辨識計數
+                    Refresh_Result();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 建立辨識用的OCR Model
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Create_Test_OCR_Model_Click(object sender, EventArgs e)
+        {
+            int Word_max_Width, Word_max_High, Stroke_max_Width;
+            int Word_min_Width, Word_min_High, Stroke_min_Width;
+            bool Word_max_Width_auto, Word_max_High_auto, Stroke_max_Width_auto;
+            bool Word_min_Width_auto, Word_min_High_auto, Stroke_min_Width_auto;
+            try
+            {
+                //輸入OCR建立參數
+                Word_min_Width = Convert.ToInt32(Tb_Test_Min_Word_Width.Text);
+                Word_min_High = Convert.ToInt32(Tb_Test_Min_Word_Height.Text);
+                Stroke_min_Width = Convert.ToInt32(Tb_Test_Min_Width.Text);
+                Word_max_Width = Convert.ToInt32(Tb_Test_Max_Word_Width.Text);
+                Word_max_High = Convert.ToInt32(Tb_Test_Max_Word_Height.Text);
+                Stroke_max_Width = Convert.ToInt32(Tb_Test_Max_Width.Text);
+
+                //auto 功能確認
+                Word_min_Width_auto = cb_Test_min_word_width_auto.Checked;
+                Word_min_High_auto = cb_Test_min_word_high_auto.Checked;
+                Stroke_min_Width_auto = cb_Test_min_width_auto.Checked;
+                Word_max_High_auto = cb_Test_max_word_high_auto.Checked;
+                Word_max_Width_auto = cb_Test_max_word_width_auto.Checked;
+                Stroke_max_Width_auto = cb_Test_max_width_auto.Checked;
+            }
+            catch
+            {
+                MessageBox.Show("OCR參數有誤!!");
+                return;
+            }
+
+            //建立OCR_Handle(字元檔路徑需修改)
+            HOperatorSet.ReadOcrClassMlp("Industrial_0-9A-Z_NoRej.omc", out Test_OCR_handle);
+            //
+            HOperatorSet.CreateTextModelReader("auto", Test_OCR_model, out Test_OCR_model);
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "dot_print", "true");
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "min_contrast", 4);
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "polarity", "dark_on_light");
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "eliminate_border_blobs", "false");
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "add_fragments", "false");
+
+            if (Word_min_Width_auto)
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "min_char_width", "auto");
+            }
+            else
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "min_char_width", Word_min_Width);
+            }
+
+            if (Word_min_High_auto)
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "min_char_height", "auto");
+            }
+            else
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "min_char_height", Word_min_High);
+            }
+
+            if (Word_max_Width_auto)
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "max_char_width", "auto");
+            }
+            else
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "max_char_width", Word_max_Width);
+            }
+
+            if (Word_max_High_auto)
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "max_char_height", "auto");
+            }
+            else
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "max_char_height", Word_max_High);
+            }
+
+            if (Stroke_min_Width_auto)
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "min_stroke_width", "auto");
+            }
+            else
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "min_stroke_width", Stroke_min_Width);
+            }
+
+            if (Stroke_max_Width_auto)
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "max_stroke_width", "auto");
+            }
+            else
+            {
+                HOperatorSet.SetTextModelParam(Test_OCR_model, "max_stroke_width", Stroke_max_Width);
+            }
+
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "return_punctuation", "false");
+            HOperatorSet.SetTextModelParam(Test_OCR_model, "num_classes", 3);
+            //建立比對資訊
+            compare_string = txt_Comparison_Words.Text;
+        }
 
         /// <summary>
         /// 載入測試資料夾
@@ -1205,6 +1378,18 @@ namespace OCR_training_program
                     txt_Test_Folder_Path.Text = fBD.SelectedPath;
                 }
             }
+        }
+
+        /// <summary>
+        /// 重置辨識計數
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Reset_Click(object sender, EventArgs e)
+        {
+            lbl_plan_A_OK.Text = $"0";
+            lbl_plan_A_NG.Text = $"0";
+            lbl_plan_A_Yield.Text = $"0";
         }
 
         /// <summary>
@@ -1224,6 +1409,10 @@ namespace OCR_training_program
         /// <param name="e"></param>
         private void btn_SingleTest_Trigger_Click(object sender, EventArgs e)
         {
+            HOperatorSet.GrabImage(out ho_Test_OriImage, hv_OCRTest_AcqHandle);
+            Show_Test_Current_Image();
+            Test_OCR();
+            Refresh_Result();
         }
 
         /// <summary>
@@ -1234,15 +1423,232 @@ namespace OCR_training_program
         private void btn_TestFolder_Connect_Click(object sender, EventArgs e)
         {
             Test_Folder_Path = txt_Test_Folder_Path.Text;
-            if (Directory.Exists(Test_Folder_Path))
+            if (btn_TestFolder_Connect.Text == "Disconnect")
             {
-                hv_OCRTest_AcqHandle.Dispose();
-                HOperatorSet.OpenFramegrabber("File", 1, 1, 0, 0, 0, 0, "default", -1, "default", -1, "false", Folder_Path, "default", 1, -1, out hv_OCRTest_AcqHandle);
+                HOperatorSet.CloseFramegrabber(hv_OCRTest_AcqHandle);
+                btn_TestFolder_Connect.Text = "Connect";
             }
+            else
+            {
+                if (Directory.Exists(Test_Folder_Path))
+                {
+                    hv_OCRTest_AcqHandle.Dispose();
+                    HOperatorSet.OpenFramegrabber("File", 1, 1, 0, 0, 0, 0, "default", -1, "default", -1, "false", Folder_Path, "default", 1, -1, out hv_OCRTest_AcqHandle);
+                }
+                else
+                {
+                    MessageBox.Show("資料夾不存在!");
+                    return;
+                }
+                btn_TestFolder_Connect.Text = "Disconnect";
+            }
+
             Test_Folder_File_Count = new DirectoryInfo(Test_Folder_Path).GetFiles("*.tiff").Length; //計算測試資料夾的圖檔資料
         }
 
+        /// <summary>
+        /// 開啟OCR測試，字元設定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cb_OCR_Test_Setting_CheckedChanged(object sender, EventArgs e)
+        {
+            string cb_name = ((CheckBox)sender).Name;
+            bool cb_state = ((CheckBox)sender).Checked;
+            switch (cb_name)
+            {
+                case "cb_Test_max_word_high_auto":
+                    if (cb_state)
+                    {
+                        Tb_Test_Max_Word_Height.Enabled = false;
+                        Tb_Test_Max_Word_Height.Text = "0";
+                    }
+                    else
+                    {
+                        Tb_Test_Max_Word_Height.Enabled = true;
+                    }
+                    break;
+
+                case "cb_Test_min_word_high_auto":
+                    if (cb_state)
+                    {
+                        Tb_Test_Min_Word_Height.Enabled = false;
+                        Tb_Test_Min_Word_Height.Text = "0";
+                    }
+                    else
+                    {
+                        Tb_Test_Min_Word_Height.Enabled = true;
+                    }
+                    break;
+
+                case "cb_Test_max_word_width_auto":
+                    if (cb_state)
+                    {
+                        Tb_Test_Max_Word_Width.Enabled = false;
+                        Tb_Test_Max_Word_Width.Text = "0";
+                    }
+                    else
+                    {
+                        Tb_Test_Max_Word_Width.Enabled = true;
+                    }
+                    break;
+
+                case "cb_Test_min_word_width_auto":
+                    if (cb_state)
+                    {
+                        Tb_Test_Min_Word_Width.Enabled = false;
+                        Tb_Test_Min_Word_Width.Text = "0";
+                    }
+                    else
+                    {
+                        Tb_Test_Min_Word_Width.Enabled = true;
+                    }
+                    break;
+
+                case "cb_Test_max_width_auto":
+                    if (cb_state)
+                    {
+                        Tb_Test_Max_Width.Enabled = false;
+                        Tb_Test_Max_Width.Text = "0";
+                    }
+                    else
+                    {
+                        Tb_Test_Max_Width.Enabled = true;
+                    }
+                    break;
+
+                case "cb_Test_min_width_auto":
+                    if (cb_state)
+                    {
+                        Tb_Test_Min_Width.Enabled = false;
+                        Tb_Test_Min_Width.Text = "0";
+                    }
+                    else
+                    {
+                        Tb_Test_Min_Width.Enabled = true;
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 設定辨識條件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbo_Comparison_Condition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbo_Identification_Restrictions.SelectedIndex)
+            {
+                case 0:  //數字與英文字母
+                    OCR_Expression = "^[0-9A-Za-z]*$";
+                    break;
+
+                case 1: //數字與大寫英文
+                    OCR_Expression = "^[0-9A-Z]*$";
+                    break;
+
+                case 2: //數字與小寫英文
+                    OCR_Expression = "^[0-9a-z]*$";
+                    break;
+
+                case 3: //只有英文(含大小寫)
+                    OCR_Expression = "^[A-Za-z]*$";
+                    break;
+
+                case 4: //只有大寫英文
+                    OCR_Expression = "^[A-Z]*$";
+                    break;
+
+                case 5: //只有小寫英文
+                    OCR_Expression = "^[a-z]*$";
+                    break;
+
+                case 6: //只有數字
+                    OCR_Expression = "^[0-9]*$";
+                    break;
+
+                case 7: //排除特定字元
+                    OCR_Expression = Exclude_Chars;
+                    break;
+            }
+            txt_Exclude_Chars.Enabled = (cbo_Identification_Restrictions.SelectedIndex == 7) ? true : false;
+        }
+
+        /// <summary>
+        /// 輸入辨識排除字元時，一併紀錄
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt_Exclude_Chars_TextChanged(object sender, EventArgs e)
+        {
+            Exclude_Chars = "^[^" + txt_Exclude_Chars.Text + "]*$";
+        }
+
         #endregion 控鍵
+
+        #region 方法
+
+        /// <summary>
+        /// 更新比對結果
+        /// </summary>
+        private void Refresh_Result()
+        {
+            lbl_plan_A_OK.Text = $"{detect_OK}";
+            lbl_plan_A_NG.Text = $"{detect_NG}";
+            lbl_plan_A_Yield.Text = $"{Math.Round(detect_Correct_Ratio, 2)}%";
+        }
+
+        /// <summary>
+        /// 測試視窗的即時影像顯示
+        /// </summary>
+        private void Show_Test_Current_Image()
+        {
+            HOperatorSet.GetImageSize(ho_Test_OriImage, out HTuple W, out HTuple H);
+            HOperatorSet.SetPart(HSWC_Test.HalconWindow, 0, 0, H - 1, W - 1);
+            HOperatorSet.DispObj(ho_Test_OriImage, HSWC_Test.HalconWindow);
+            HOperatorSet.GetImageSize(ho_Test_OriImage, out HTuple w, out HTuple h);
+        }
+
+        /// <summary>
+        /// OCR辨識與測試
+        /// </summary>
+        private void Test_OCR()
+        {
+            HOperatorSet.FindText(ho_Test_OriImage, Test_OCR_model, out HTuple textResultID);
+            hv_TmpCtrl_NumLines.Dispose();
+            HOperatorSet.GetTextResult(textResultID, "num_lines", out hv_TmpCtrl_NumLines);
+            HTuple Words = new HTuple();
+            HTuple Confidence = new HTuple();
+            HTuple end_val90 = hv_TmpCtrl_NumLines - 1;
+            HTuple step_val90 = 1;
+            for (hv_TmpCtrl_LineIndex = 0; hv_TmpCtrl_LineIndex.Continue(end_val90, step_val90); hv_TmpCtrl_LineIndex = hv_TmpCtrl_LineIndex.TupleAdd(step_val90))
+            {
+                using (HDevDisposeHelper dh = new HDevDisposeHelper())
+                {
+                    ho_Symbols_OCR_01_0.Dispose();
+                    HOperatorSet.GetTextObject(out ho_Symbols_OCR_01_0, textResultID, (new HTuple("line")).TupleConcat(hv_TmpCtrl_LineIndex));
+                }
+                using (HDevDisposeHelper dh = new HDevDisposeHelper())
+                {
+                    hv_SymbolNames_OCR_01_0.Dispose(); hv_Confidences_OCR_01_0.Dispose(); hv_Scores_OCR_01_0.Dispose();
+                    HOperatorSet.DoOcrWordMlp(ho_Symbols_OCR_01_0, ho_OriImage, OCR_handel, OCR_Expression, 5, 5, out hv_SymbolNames_OCR_01_0, out Confidence, out Words, out HTuple Scores);
+                }
+            }
+            detect_words = Words;
+            //統計
+            if (detect_words == compare_string)
+            {
+                detect_OK++;
+            }
+            else
+            {
+                detect_NG++;
+            }
+            detect_Correct_Ratio = Convert.ToDouble(detect_OK) / Convert.ToDouble(detect_OK + detect_NG) * 100;
+        }
+
+        #endregion 方法
 
         #endregion 辨識測試
     }

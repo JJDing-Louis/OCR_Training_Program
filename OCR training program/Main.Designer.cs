@@ -88,8 +88,10 @@ namespace OCR_training_program
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btn_Start_Train_OCR = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.cbo_Comparison_Condition = new System.Windows.Forms.ComboBox();
-            this.lbl_Comparison_Condition = new System.Windows.Forms.Label();
+            this.txt_Exclude_Chars = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cbo_Identification_Restrictions = new System.Windows.Forms.ComboBox();
+            this.lbl_Identification_Restrictions = new System.Windows.Forms.Label();
             this.lbl_plan_A_Yield = new System.Windows.Forms.Label();
             this.lbl_plan_A_NG = new System.Windows.Forms.Label();
             this.lbl_plan_A_OK = new System.Windows.Forms.Label();
@@ -102,7 +104,7 @@ namespace OCR_training_program
             this.btn_TestFolder_Connect = new System.Windows.Forms.Button();
             this.txt_Comparison_Words = new System.Windows.Forms.TextBox();
             this.lbl_Comparison_Words = new System.Windows.Forms.Label();
-            this.hSmartWindowControl1 = new HalconDotNet.HSmartWindowControl();
+            this.HSWC_Test = new HalconDotNet.HSmartWindowControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -111,22 +113,22 @@ namespace OCR_training_program
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.cb_Test_min_width_auto = new System.Windows.Forms.CheckBox();
+            this.cb_Test_min_word_width_auto = new System.Windows.Forms.CheckBox();
+            this.cb_Test_min_word_high_auto = new System.Windows.Forms.CheckBox();
+            this.cb_Test_max_width_auto = new System.Windows.Forms.CheckBox();
+            this.cb_Test_max_word_width_auto = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox4 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox5 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox6 = new System.Windows.Forms.MaskedTextBox();
+            this.cb_Test_max_word_high_auto = new System.Windows.Forms.CheckBox();
+            this.Tb_Test_Min_Word_Height = new System.Windows.Forms.MaskedTextBox();
+            this.Tb_Test_Min_Width = new System.Windows.Forms.MaskedTextBox();
+            this.Tb_Test_Min_Word_Width = new System.Windows.Forms.MaskedTextBox();
+            this.Tb_Test_Max_Word_Height = new System.Windows.Forms.MaskedTextBox();
+            this.Tb_Test_Max_Width = new System.Windows.Forms.MaskedTextBox();
+            this.Tb_Test_Max_Word_Width = new System.Windows.Forms.MaskedTextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btn_Create_Test_OCR_Model = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_Test_Folder_Path = new System.Windows.Forms.TextBox();
             this.btn_Load_TestFolder = new System.Windows.Forms.Button();
@@ -908,8 +910,10 @@ namespace OCR_training_program
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.cbo_Comparison_Condition);
-            this.tabPage3.Controls.Add(this.lbl_Comparison_Condition);
+            this.tabPage3.Controls.Add(this.txt_Exclude_Chars);
+            this.tabPage3.Controls.Add(this.label18);
+            this.tabPage3.Controls.Add(this.cbo_Identification_Restrictions);
+            this.tabPage3.Controls.Add(this.lbl_Identification_Restrictions);
             this.tabPage3.Controls.Add(this.lbl_plan_A_Yield);
             this.tabPage3.Controls.Add(this.lbl_plan_A_NG);
             this.tabPage3.Controls.Add(this.lbl_plan_A_OK);
@@ -922,7 +926,7 @@ namespace OCR_training_program
             this.tabPage3.Controls.Add(this.btn_TestFolder_Connect);
             this.tabPage3.Controls.Add(this.txt_Comparison_Words);
             this.tabPage3.Controls.Add(this.lbl_Comparison_Words);
-            this.tabPage3.Controls.Add(this.hSmartWindowControl1);
+            this.tabPage3.Controls.Add(this.HSWC_Test);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.txt_Test_Folder_Path);
             this.tabPage3.Controls.Add(this.btn_Load_TestFolder);
@@ -935,35 +939,57 @@ namespace OCR_training_program
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "測試";
             // 
-            // cbo_Comparison_Condition
+            // txt_Exclude_Chars
             // 
-            this.cbo_Comparison_Condition.FormattingEnabled = true;
-            this.cbo_Comparison_Condition.Items.AddRange(new object[] {
+            this.txt_Exclude_Chars.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Exclude_Chars.Location = new System.Drawing.Point(140, 131);
+            this.txt_Exclude_Chars.Name = "txt_Exclude_Chars";
+            this.txt_Exclude_Chars.Size = new System.Drawing.Size(253, 34);
+            this.txt_Exclude_Chars.TabIndex = 56;
+            this.txt_Exclude_Chars.TextChanged += new System.EventHandler(this.txt_Exclude_Chars_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(20, 134);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(122, 27);
+            this.label18.TabIndex = 55;
+            this.label18.Text = "排除字元 :";
+            // 
+            // cbo_Identification_Restrictions
+            // 
+            this.cbo_Identification_Restrictions.FormattingEnabled = true;
+            this.cbo_Identification_Restrictions.Items.AddRange(new object[] {
             "數字與英文字母",
             "數字與大寫英文",
             "數字與小寫英文",
             "只有英文(含大小寫)",
+            "只有大寫英文",
+            "只有小寫英文",
             "只有數字",
             "排除特定字元"});
-            this.cbo_Comparison_Condition.Location = new System.Drawing.Point(140, 94);
-            this.cbo_Comparison_Condition.Name = "cbo_Comparison_Condition";
-            this.cbo_Comparison_Condition.Size = new System.Drawing.Size(253, 34);
-            this.cbo_Comparison_Condition.TabIndex = 54;
+            this.cbo_Identification_Restrictions.Location = new System.Drawing.Point(140, 94);
+            this.cbo_Identification_Restrictions.Name = "cbo_Identification_Restrictions";
+            this.cbo_Identification_Restrictions.Size = new System.Drawing.Size(253, 34);
+            this.cbo_Identification_Restrictions.TabIndex = 54;
+            this.cbo_Identification_Restrictions.SelectedIndexChanged += new System.EventHandler(this.cbo_Comparison_Condition_SelectedIndexChanged);
             // 
-            // lbl_Comparison_Condition
+            // lbl_Identification_Restrictions
             // 
-            this.lbl_Comparison_Condition.AutoSize = true;
-            this.lbl_Comparison_Condition.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Comparison_Condition.Location = new System.Drawing.Point(20, 97);
-            this.lbl_Comparison_Condition.Name = "lbl_Comparison_Condition";
-            this.lbl_Comparison_Condition.Size = new System.Drawing.Size(122, 27);
-            this.lbl_Comparison_Condition.TabIndex = 53;
-            this.lbl_Comparison_Condition.Text = "比對條件 :";
+            this.lbl_Identification_Restrictions.AutoSize = true;
+            this.lbl_Identification_Restrictions.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Identification_Restrictions.Location = new System.Drawing.Point(20, 97);
+            this.lbl_Identification_Restrictions.Name = "lbl_Identification_Restrictions";
+            this.lbl_Identification_Restrictions.Size = new System.Drawing.Size(122, 27);
+            this.lbl_Identification_Restrictions.TabIndex = 53;
+            this.lbl_Identification_Restrictions.Text = "辨識限制 :";
             // 
             // lbl_plan_A_Yield
             // 
             this.lbl_plan_A_Yield.AutoSize = true;
-            this.lbl_plan_A_Yield.Location = new System.Drawing.Point(489, 353);
+            this.lbl_plan_A_Yield.Location = new System.Drawing.Point(489, 385);
             this.lbl_plan_A_Yield.Name = "lbl_plan_A_Yield";
             this.lbl_plan_A_Yield.Size = new System.Drawing.Size(25, 27);
             this.lbl_plan_A_Yield.TabIndex = 52;
@@ -972,7 +998,7 @@ namespace OCR_training_program
             // lbl_plan_A_NG
             // 
             this.lbl_plan_A_NG.AutoSize = true;
-            this.lbl_plan_A_NG.Location = new System.Drawing.Point(303, 353);
+            this.lbl_plan_A_NG.Location = new System.Drawing.Point(303, 385);
             this.lbl_plan_A_NG.Name = "lbl_plan_A_NG";
             this.lbl_plan_A_NG.Size = new System.Drawing.Size(25, 27);
             this.lbl_plan_A_NG.TabIndex = 51;
@@ -981,7 +1007,7 @@ namespace OCR_training_program
             // lbl_plan_A_OK
             // 
             this.lbl_plan_A_OK.AutoSize = true;
-            this.lbl_plan_A_OK.Location = new System.Drawing.Point(141, 353);
+            this.lbl_plan_A_OK.Location = new System.Drawing.Point(141, 385);
             this.lbl_plan_A_OK.Name = "lbl_plan_A_OK";
             this.lbl_plan_A_OK.Size = new System.Drawing.Size(25, 27);
             this.lbl_plan_A_OK.TabIndex = 50;
@@ -990,7 +1016,7 @@ namespace OCR_training_program
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(387, 353);
+            this.label14.Location = new System.Drawing.Point(387, 385);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(67, 27);
             this.label14.TabIndex = 49;
@@ -999,7 +1025,7 @@ namespace OCR_training_program
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(217, 353);
+            this.label15.Location = new System.Drawing.Point(217, 385);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(48, 27);
             this.label15.TabIndex = 48;
@@ -1008,7 +1034,7 @@ namespace OCR_training_program
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(48, 353);
+            this.label16.Location = new System.Drawing.Point(48, 385);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(47, 27);
             this.label16.TabIndex = 47;
@@ -1023,6 +1049,7 @@ namespace OCR_training_program
             this.btn_Reset.TabIndex = 46;
             this.btn_Reset.Text = "Reset";
             this.btn_Reset.UseVisualStyleBackColor = true;
+            this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
             // 
             // btn_Run_Image_Test
             // 
@@ -1076,22 +1103,22 @@ namespace OCR_training_program
             this.lbl_Comparison_Words.TabIndex = 41;
             this.lbl_Comparison_Words.Text = "比對字串 :";
             // 
-            // hSmartWindowControl1
+            // HSWC_Test
             // 
-            this.hSmartWindowControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.hSmartWindowControl1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.hSmartWindowControl1.HDoubleClickToFitContent = true;
-            this.hSmartWindowControl1.HDrawingObjectsModifier = HalconDotNet.HSmartWindowControl.DrawingObjectsModifier.None;
-            this.hSmartWindowControl1.HImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
-            this.hSmartWindowControl1.HKeepAspectRatio = true;
-            this.hSmartWindowControl1.HMoveContent = true;
-            this.hSmartWindowControl1.HZoomContent = HalconDotNet.HSmartWindowControl.ZoomContent.WheelForwardZoomsIn;
-            this.hSmartWindowControl1.Location = new System.Drawing.Point(567, 104);
-            this.hSmartWindowControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.hSmartWindowControl1.Name = "hSmartWindowControl1";
-            this.hSmartWindowControl1.Size = new System.Drawing.Size(445, 159);
-            this.hSmartWindowControl1.TabIndex = 40;
-            this.hSmartWindowControl1.WindowSize = new System.Drawing.Size(445, 159);
+            this.HSWC_Test.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.HSWC_Test.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.HSWC_Test.HDoubleClickToFitContent = true;
+            this.HSWC_Test.HDrawingObjectsModifier = HalconDotNet.HSmartWindowControl.DrawingObjectsModifier.None;
+            this.HSWC_Test.HImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
+            this.HSWC_Test.HKeepAspectRatio = true;
+            this.HSWC_Test.HMoveContent = true;
+            this.HSWC_Test.HZoomContent = HalconDotNet.HSmartWindowControl.ZoomContent.WheelForwardZoomsIn;
+            this.HSWC_Test.Location = new System.Drawing.Point(567, 64);
+            this.HSWC_Test.Margin = new System.Windows.Forms.Padding(0);
+            this.HSWC_Test.Name = "HSWC_Test";
+            this.HSWC_Test.Size = new System.Drawing.Size(445, 159);
+            this.HSWC_Test.TabIndex = 40;
+            this.HSWC_Test.WindowSize = new System.Drawing.Size(445, 159);
             // 
             // groupBox2
             // 
@@ -1102,24 +1129,24 @@ namespace OCR_training_program
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.checkBox4);
-            this.groupBox2.Controls.Add(this.checkBox5);
-            this.groupBox2.Controls.Add(this.checkBox6);
-            this.groupBox2.Controls.Add(this.checkBox7);
-            this.groupBox2.Controls.Add(this.checkBox8);
+            this.groupBox2.Controls.Add(this.cb_Test_min_width_auto);
+            this.groupBox2.Controls.Add(this.cb_Test_min_word_width_auto);
+            this.groupBox2.Controls.Add(this.cb_Test_min_word_high_auto);
+            this.groupBox2.Controls.Add(this.cb_Test_max_width_auto);
+            this.groupBox2.Controls.Add(this.cb_Test_max_word_width_auto);
             this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.checkBox9);
-            this.groupBox2.Controls.Add(this.maskedTextBox1);
-            this.groupBox2.Controls.Add(this.maskedTextBox2);
-            this.groupBox2.Controls.Add(this.maskedTextBox3);
-            this.groupBox2.Controls.Add(this.maskedTextBox4);
-            this.groupBox2.Controls.Add(this.maskedTextBox5);
-            this.groupBox2.Controls.Add(this.maskedTextBox6);
+            this.groupBox2.Controls.Add(this.cb_Test_max_word_high_auto);
+            this.groupBox2.Controls.Add(this.Tb_Test_Min_Word_Height);
+            this.groupBox2.Controls.Add(this.Tb_Test_Min_Width);
+            this.groupBox2.Controls.Add(this.Tb_Test_Min_Word_Width);
+            this.groupBox2.Controls.Add(this.Tb_Test_Max_Word_Height);
+            this.groupBox2.Controls.Add(this.Tb_Test_Max_Width);
+            this.groupBox2.Controls.Add(this.Tb_Test_Max_Word_Width);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.button4);
+            this.groupBox2.Controls.Add(this.btn_Create_Test_OCR_Model);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Location = new System.Drawing.Point(15, 136);
+            this.groupBox2.Location = new System.Drawing.Point(15, 167);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -1198,70 +1225,75 @@ namespace OCR_training_program
             this.label10.TabIndex = 50;
             this.label10.Text = "Max";
             // 
-            // checkBox4
+            // cb_Test_min_width_auto
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Checked = true;
-            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(454, 139);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(83, 31);
-            this.checkBox4.TabIndex = 49;
-            this.checkBox4.Text = "Auto";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.cb_Test_min_width_auto.AutoSize = true;
+            this.cb_Test_min_width_auto.Checked = true;
+            this.cb_Test_min_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_Test_min_width_auto.Location = new System.Drawing.Point(454, 139);
+            this.cb_Test_min_width_auto.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_Test_min_width_auto.Name = "cb_Test_min_width_auto";
+            this.cb_Test_min_width_auto.Size = new System.Drawing.Size(83, 31);
+            this.cb_Test_min_width_auto.TabIndex = 49;
+            this.cb_Test_min_width_auto.Text = "Auto";
+            this.cb_Test_min_width_auto.UseVisualStyleBackColor = true;
+            this.cb_Test_min_width_auto.CheckedChanged += new System.EventHandler(this.cb_OCR_Test_Setting_CheckedChanged);
             // 
-            // checkBox5
+            // cb_Test_min_word_width_auto
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Checked = true;
-            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Location = new System.Drawing.Point(454, 99);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(83, 31);
-            this.checkBox5.TabIndex = 48;
-            this.checkBox5.Text = "Auto";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.cb_Test_min_word_width_auto.AutoSize = true;
+            this.cb_Test_min_word_width_auto.Checked = true;
+            this.cb_Test_min_word_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_Test_min_word_width_auto.Location = new System.Drawing.Point(454, 99);
+            this.cb_Test_min_word_width_auto.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_Test_min_word_width_auto.Name = "cb_Test_min_word_width_auto";
+            this.cb_Test_min_word_width_auto.Size = new System.Drawing.Size(83, 31);
+            this.cb_Test_min_word_width_auto.TabIndex = 48;
+            this.cb_Test_min_word_width_auto.Text = "Auto";
+            this.cb_Test_min_word_width_auto.UseVisualStyleBackColor = true;
+            this.cb_Test_min_word_width_auto.CheckedChanged += new System.EventHandler(this.cb_OCR_Test_Setting_CheckedChanged);
             // 
-            // checkBox6
+            // cb_Test_min_word_high_auto
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Checked = true;
-            this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox6.Location = new System.Drawing.Point(454, 62);
-            this.checkBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(83, 31);
-            this.checkBox6.TabIndex = 47;
-            this.checkBox6.Text = "Auto";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.cb_Test_min_word_high_auto.AutoSize = true;
+            this.cb_Test_min_word_high_auto.Checked = true;
+            this.cb_Test_min_word_high_auto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_Test_min_word_high_auto.Location = new System.Drawing.Point(454, 62);
+            this.cb_Test_min_word_high_auto.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_Test_min_word_high_auto.Name = "cb_Test_min_word_high_auto";
+            this.cb_Test_min_word_high_auto.Size = new System.Drawing.Size(83, 31);
+            this.cb_Test_min_word_high_auto.TabIndex = 47;
+            this.cb_Test_min_word_high_auto.Text = "Auto";
+            this.cb_Test_min_word_high_auto.UseVisualStyleBackColor = true;
+            this.cb_Test_min_word_high_auto.CheckedChanged += new System.EventHandler(this.cb_OCR_Test_Setting_CheckedChanged);
             // 
-            // checkBox7
+            // cb_Test_max_width_auto
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Checked = true;
-            this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox7.Location = new System.Drawing.Point(252, 139);
-            this.checkBox7.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(83, 31);
-            this.checkBox7.TabIndex = 46;
-            this.checkBox7.Text = "Auto";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.cb_Test_max_width_auto.AutoSize = true;
+            this.cb_Test_max_width_auto.Checked = true;
+            this.cb_Test_max_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_Test_max_width_auto.Location = new System.Drawing.Point(252, 139);
+            this.cb_Test_max_width_auto.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_Test_max_width_auto.Name = "cb_Test_max_width_auto";
+            this.cb_Test_max_width_auto.Size = new System.Drawing.Size(83, 31);
+            this.cb_Test_max_width_auto.TabIndex = 46;
+            this.cb_Test_max_width_auto.Text = "Auto";
+            this.cb_Test_max_width_auto.UseVisualStyleBackColor = true;
+            this.cb_Test_max_width_auto.CheckedChanged += new System.EventHandler(this.cb_OCR_Test_Setting_CheckedChanged);
             // 
-            // checkBox8
+            // cb_Test_max_word_width_auto
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Checked = true;
-            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.Location = new System.Drawing.Point(252, 99);
-            this.checkBox8.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(83, 31);
-            this.checkBox8.TabIndex = 45;
-            this.checkBox8.Text = "Auto";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.cb_Test_max_word_width_auto.AutoSize = true;
+            this.cb_Test_max_word_width_auto.Checked = true;
+            this.cb_Test_max_word_width_auto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_Test_max_word_width_auto.Location = new System.Drawing.Point(252, 99);
+            this.cb_Test_max_word_width_auto.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_Test_max_word_width_auto.Name = "cb_Test_max_word_width_auto";
+            this.cb_Test_max_word_width_auto.Size = new System.Drawing.Size(83, 31);
+            this.cb_Test_max_word_width_auto.TabIndex = 45;
+            this.cb_Test_max_word_width_auto.Text = "Auto";
+            this.cb_Test_max_word_width_auto.UseVisualStyleBackColor = true;
+            this.cb_Test_max_word_width_auto.CheckedChanged += new System.EventHandler(this.cb_OCR_Test_Setting_CheckedChanged);
             // 
             // comboBox1
             // 
@@ -1276,96 +1308,97 @@ namespace OCR_training_program
             this.comboBox1.Size = new System.Drawing.Size(228, 34);
             this.comboBox1.TabIndex = 35;
             // 
-            // checkBox9
+            // cb_Test_max_word_high_auto
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Checked = true;
-            this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox9.Location = new System.Drawing.Point(252, 62);
-            this.checkBox9.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(83, 31);
-            this.checkBox9.TabIndex = 44;
-            this.checkBox9.Text = "Auto";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.cb_Test_max_word_high_auto.AutoSize = true;
+            this.cb_Test_max_word_high_auto.Checked = true;
+            this.cb_Test_max_word_high_auto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_Test_max_word_high_auto.Location = new System.Drawing.Point(252, 62);
+            this.cb_Test_max_word_high_auto.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_Test_max_word_high_auto.Name = "cb_Test_max_word_high_auto";
+            this.cb_Test_max_word_high_auto.Size = new System.Drawing.Size(83, 31);
+            this.cb_Test_max_word_high_auto.TabIndex = 44;
+            this.cb_Test_max_word_high_auto.Text = "Auto";
+            this.cb_Test_max_word_high_auto.UseVisualStyleBackColor = true;
+            this.cb_Test_max_word_high_auto.CheckedChanged += new System.EventHandler(this.cb_OCR_Test_Setting_CheckedChanged);
             // 
-            // maskedTextBox1
+            // Tb_Test_Min_Word_Height
             // 
-            this.maskedTextBox1.Enabled = false;
-            this.maskedTextBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.maskedTextBox1.Location = new System.Drawing.Point(391, 60);
-            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox1.Mask = "999";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.PromptChar = ' ';
-            this.maskedTextBox1.Size = new System.Drawing.Size(48, 34);
-            this.maskedTextBox1.TabIndex = 17;
-            this.maskedTextBox1.Text = "0";
+            this.Tb_Test_Min_Word_Height.Enabled = false;
+            this.Tb_Test_Min_Word_Height.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Tb_Test_Min_Word_Height.Location = new System.Drawing.Point(391, 60);
+            this.Tb_Test_Min_Word_Height.Margin = new System.Windows.Forms.Padding(4);
+            this.Tb_Test_Min_Word_Height.Mask = "999";
+            this.Tb_Test_Min_Word_Height.Name = "Tb_Test_Min_Word_Height";
+            this.Tb_Test_Min_Word_Height.PromptChar = ' ';
+            this.Tb_Test_Min_Word_Height.Size = new System.Drawing.Size(48, 34);
+            this.Tb_Test_Min_Word_Height.TabIndex = 17;
+            this.Tb_Test_Min_Word_Height.Text = "0";
             // 
-            // maskedTextBox2
+            // Tb_Test_Min_Width
             // 
-            this.maskedTextBox2.Enabled = false;
-            this.maskedTextBox2.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.maskedTextBox2.Location = new System.Drawing.Point(391, 137);
-            this.maskedTextBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox2.Mask = "999";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.PromptChar = ' ';
-            this.maskedTextBox2.Size = new System.Drawing.Size(48, 34);
-            this.maskedTextBox2.TabIndex = 18;
-            this.maskedTextBox2.Text = "0";
+            this.Tb_Test_Min_Width.Enabled = false;
+            this.Tb_Test_Min_Width.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Tb_Test_Min_Width.Location = new System.Drawing.Point(391, 137);
+            this.Tb_Test_Min_Width.Margin = new System.Windows.Forms.Padding(4);
+            this.Tb_Test_Min_Width.Mask = "999";
+            this.Tb_Test_Min_Width.Name = "Tb_Test_Min_Width";
+            this.Tb_Test_Min_Width.PromptChar = ' ';
+            this.Tb_Test_Min_Width.Size = new System.Drawing.Size(48, 34);
+            this.Tb_Test_Min_Width.TabIndex = 18;
+            this.Tb_Test_Min_Width.Text = "0";
             // 
-            // maskedTextBox3
+            // Tb_Test_Min_Word_Width
             // 
-            this.maskedTextBox3.Enabled = false;
-            this.maskedTextBox3.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.maskedTextBox3.Location = new System.Drawing.Point(391, 97);
-            this.maskedTextBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox3.Mask = "999";
-            this.maskedTextBox3.Name = "maskedTextBox3";
-            this.maskedTextBox3.PromptChar = ' ';
-            this.maskedTextBox3.Size = new System.Drawing.Size(48, 34);
-            this.maskedTextBox3.TabIndex = 16;
-            this.maskedTextBox3.Text = "0";
+            this.Tb_Test_Min_Word_Width.Enabled = false;
+            this.Tb_Test_Min_Word_Width.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Tb_Test_Min_Word_Width.Location = new System.Drawing.Point(391, 97);
+            this.Tb_Test_Min_Word_Width.Margin = new System.Windows.Forms.Padding(4);
+            this.Tb_Test_Min_Word_Width.Mask = "999";
+            this.Tb_Test_Min_Word_Width.Name = "Tb_Test_Min_Word_Width";
+            this.Tb_Test_Min_Word_Width.PromptChar = ' ';
+            this.Tb_Test_Min_Word_Width.Size = new System.Drawing.Size(48, 34);
+            this.Tb_Test_Min_Word_Width.TabIndex = 16;
+            this.Tb_Test_Min_Word_Width.Text = "0";
             // 
-            // maskedTextBox4
+            // Tb_Test_Max_Word_Height
             // 
-            this.maskedTextBox4.Enabled = false;
-            this.maskedTextBox4.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.maskedTextBox4.Location = new System.Drawing.Point(193, 60);
-            this.maskedTextBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox4.Mask = "999";
-            this.maskedTextBox4.Name = "maskedTextBox4";
-            this.maskedTextBox4.PromptChar = ' ';
-            this.maskedTextBox4.Size = new System.Drawing.Size(48, 34);
-            this.maskedTextBox4.TabIndex = 14;
-            this.maskedTextBox4.Text = "0";
+            this.Tb_Test_Max_Word_Height.Enabled = false;
+            this.Tb_Test_Max_Word_Height.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Tb_Test_Max_Word_Height.Location = new System.Drawing.Point(193, 60);
+            this.Tb_Test_Max_Word_Height.Margin = new System.Windows.Forms.Padding(4);
+            this.Tb_Test_Max_Word_Height.Mask = "999";
+            this.Tb_Test_Max_Word_Height.Name = "Tb_Test_Max_Word_Height";
+            this.Tb_Test_Max_Word_Height.PromptChar = ' ';
+            this.Tb_Test_Max_Word_Height.Size = new System.Drawing.Size(48, 34);
+            this.Tb_Test_Max_Word_Height.TabIndex = 14;
+            this.Tb_Test_Max_Word_Height.Text = "0";
             // 
-            // maskedTextBox5
+            // Tb_Test_Max_Width
             // 
-            this.maskedTextBox5.Enabled = false;
-            this.maskedTextBox5.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.maskedTextBox5.Location = new System.Drawing.Point(193, 137);
-            this.maskedTextBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox5.Mask = "999";
-            this.maskedTextBox5.Name = "maskedTextBox5";
-            this.maskedTextBox5.PromptChar = ' ';
-            this.maskedTextBox5.Size = new System.Drawing.Size(48, 34);
-            this.maskedTextBox5.TabIndex = 15;
-            this.maskedTextBox5.Text = "0";
+            this.Tb_Test_Max_Width.Enabled = false;
+            this.Tb_Test_Max_Width.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Tb_Test_Max_Width.Location = new System.Drawing.Point(193, 137);
+            this.Tb_Test_Max_Width.Margin = new System.Windows.Forms.Padding(4);
+            this.Tb_Test_Max_Width.Mask = "999";
+            this.Tb_Test_Max_Width.Name = "Tb_Test_Max_Width";
+            this.Tb_Test_Max_Width.PromptChar = ' ';
+            this.Tb_Test_Max_Width.Size = new System.Drawing.Size(48, 34);
+            this.Tb_Test_Max_Width.TabIndex = 15;
+            this.Tb_Test_Max_Width.Text = "0";
             // 
-            // maskedTextBox6
+            // Tb_Test_Max_Word_Width
             // 
-            this.maskedTextBox6.Enabled = false;
-            this.maskedTextBox6.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.maskedTextBox6.Location = new System.Drawing.Point(193, 97);
-            this.maskedTextBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox6.Mask = "999";
-            this.maskedTextBox6.Name = "maskedTextBox6";
-            this.maskedTextBox6.PromptChar = ' ';
-            this.maskedTextBox6.Size = new System.Drawing.Size(48, 34);
-            this.maskedTextBox6.TabIndex = 13;
-            this.maskedTextBox6.Text = "0";
+            this.Tb_Test_Max_Word_Width.Enabled = false;
+            this.Tb_Test_Max_Word_Width.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Tb_Test_Max_Word_Width.Location = new System.Drawing.Point(193, 97);
+            this.Tb_Test_Max_Word_Width.Margin = new System.Windows.Forms.Padding(4);
+            this.Tb_Test_Max_Word_Width.Mask = "999";
+            this.Tb_Test_Max_Word_Width.Name = "Tb_Test_Max_Word_Width";
+            this.Tb_Test_Max_Word_Width.PromptChar = ' ';
+            this.Tb_Test_Max_Word_Width.Size = new System.Drawing.Size(48, 34);
+            this.Tb_Test_Max_Word_Width.TabIndex = 13;
+            this.Tb_Test_Max_Word_Width.Text = "0";
             // 
             // label11
             // 
@@ -1387,15 +1420,16 @@ namespace OCR_training_program
             this.label12.TabIndex = 8;
             this.label12.Text = "筆畫寬度：";
             // 
-            // button4
+            // btn_Create_Test_OCR_Model
             // 
-            this.button4.Location = new System.Drawing.Point(8, 26);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 36);
-            this.button4.TabIndex = 25;
-            this.button4.Text = "建立OCR";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_Create_Test_OCR_Model.Location = new System.Drawing.Point(8, 26);
+            this.btn_Create_Test_OCR_Model.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Create_Test_OCR_Model.Name = "btn_Create_Test_OCR_Model";
+            this.btn_Create_Test_OCR_Model.Size = new System.Drawing.Size(100, 36);
+            this.btn_Create_Test_OCR_Model.TabIndex = 25;
+            this.btn_Create_Test_OCR_Model.Text = "建立OCR";
+            this.btn_Create_Test_OCR_Model.UseVisualStyleBackColor = true;
+            this.btn_Create_Test_OCR_Model.Click += new System.EventHandler(this.btn_Create_Test_OCR_Model_Click);
             // 
             // label13
             // 
@@ -1463,6 +1497,8 @@ namespace OCR_training_program
             // bgW_RunTestOCR
             // 
             this.bgW_RunTestOCR.WorkerReportsProgress = true;
+            this.bgW_RunTestOCR.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_RunTestOCR_DoWork);
+            this.bgW_RunTestOCR.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_RunTestOCR_ProgressChanged);
             // 
             // Main
             // 
@@ -1568,7 +1604,7 @@ namespace OCR_training_program
         private System.Windows.Forms.Button btn_TestFolder_Connect;
         private System.Windows.Forms.TextBox txt_Comparison_Words;
         private System.Windows.Forms.Label lbl_Comparison_Words;
-        private HalconDotNet.HSmartWindowControl hSmartWindowControl1;
+        private HalconDotNet.HSmartWindowControl HSWC_Test;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -1577,32 +1613,34 @@ namespace OCR_training_program
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox cb_Test_min_width_auto;
+        private System.Windows.Forms.CheckBox cb_Test_min_word_width_auto;
+        private System.Windows.Forms.CheckBox cb_Test_min_word_high_auto;
+        private System.Windows.Forms.CheckBox cb_Test_max_width_auto;
+        private System.Windows.Forms.CheckBox cb_Test_max_word_width_auto;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox4;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox5;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox6;
+        private System.Windows.Forms.CheckBox cb_Test_max_word_high_auto;
+        private System.Windows.Forms.MaskedTextBox Tb_Test_Min_Word_Height;
+        private System.Windows.Forms.MaskedTextBox Tb_Test_Min_Width;
+        private System.Windows.Forms.MaskedTextBox Tb_Test_Min_Word_Width;
+        private System.Windows.Forms.MaskedTextBox Tb_Test_Max_Word_Height;
+        private System.Windows.Forms.MaskedTextBox Tb_Test_Max_Width;
+        private System.Windows.Forms.MaskedTextBox Tb_Test_Max_Word_Width;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btn_Create_Test_OCR_Model;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txt_Test_Folder_Path;
         private System.Windows.Forms.Button btn_Load_TestFolder;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox cB_Advance_Setting_Enable;
-        private System.Windows.Forms.ComboBox cbo_Comparison_Condition;
-        private System.Windows.Forms.Label lbl_Comparison_Condition;
+        private System.Windows.Forms.ComboBox cbo_Identification_Restrictions;
+        private System.Windows.Forms.Label lbl_Identification_Restrictions;
         private System.ComponentModel.BackgroundWorker bgW_TraingOCR;
         private System.ComponentModel.BackgroundWorker bgW_RunTestOCR;
+        private System.Windows.Forms.TextBox txt_Exclude_Chars;
+        private System.Windows.Forms.Label label18;
     }
 }
 
