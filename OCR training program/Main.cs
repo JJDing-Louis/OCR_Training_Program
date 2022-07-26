@@ -19,7 +19,7 @@ namespace OCR_training_program
         //Log記錄用的
         public static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public int save_image_delay = 0;
+        public int save_image_delay = 10;
 
         /// <summary>
         /// 建立字元陣列用
@@ -98,7 +98,9 @@ namespace OCR_training_program
 
             //產生字元陣列，給Halcon Library使用
             foreach (var item in char_list)
-                Char_Array.Add($"\"{item}\"");
+                Char_Array.Add(item.ToString());
+            //Char_Array.Add("\"" + item + "\"");
+            //Char_Array.Add($"\"{item}\"");
             ///初始化資料夾
             ///訓練檔的
             if (!Directory.Exists(Par.OCR_Traing_FilePath))
@@ -548,7 +550,9 @@ namespace OCR_training_program
                                 HOperatorSet.SelectObj(ho_Char_Rectangle, out HObject ho_Selected_Region, i + 1);
                                 HOperatorSet.ReduceDomain(ho_OriImage, ho_Selected_Region, out HObject Image_Reduce);
                                 HOperatorSet.CropDomain(Image_Reduce, out HObject Image_Crop);
-                                HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(GetFilePath(compare_chars[i]), "Other"));
+                                Thread save_image = new Thread(() => { HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(GetFilePath(compare_chars[i]), "Other")); });
+                                save_image.Start();
+                                //HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(GetFilePath(compare_chars[i]), "Other"));
                                 Thread.Sleep(save_image_delay);
                             }
                             else //正確
@@ -564,8 +568,9 @@ namespace OCR_training_program
                                 HOperatorSet.CropDomain(Image_Reduce, out HObject Image_Crop);
 
                                 //存圖動作
-
-                                HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(GetFilePath(compare_chars[i]), compare_chars[i].ToString()));
+                                Thread save_image = new Thread(() => { HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(GetFilePath(compare_chars[i]), compare_chars[i].ToString())); });
+                                save_image.Start();
+                                //HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(GetFilePath(compare_chars[i]), compare_chars[i].ToString()));
                                 Thread.Sleep(save_image_delay);
                             }
                         }
@@ -586,7 +591,9 @@ namespace OCR_training_program
                         HOperatorSet.ReduceDomain(ho_OriImage, ho_Selected_Region, out HObject Image_Reduce);
                         HOperatorSet.CropDomain(Image_Reduce, out HObject Image_Crop);
                         //存圖動作
-                        HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(Other_Char_Saving_Path, "Other"));
+                        Thread save_image = new Thread(() => { HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(Other_Char_Saving_Path, "Other")); });
+                        save_image.Start();
+                        //HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(Other_Char_Saving_Path, "Other"));
                         Thread.Sleep(save_image_delay);
                     }
                 }
@@ -600,11 +607,13 @@ namespace OCR_training_program
                 //全截圖存擋
                 for (int i = 0; i < ho_Blob_Number.I; i++)
                 {
-                    HOperatorSet.SelectObj(ho_Char_Rectangle, out HObject ho_Selected_Region, i);
+                    HOperatorSet.SelectObj(ho_Char_Rectangle, out HObject ho_Selected_Region, i + 1);
                     HOperatorSet.ReduceDomain(ho_OriImage, ho_Selected_Region, out HObject Image_Reduce);
                     HOperatorSet.CropDomain(Image_Reduce, out HObject Image_Crop);
                     //存圖動作
-                    HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(Other_Char_Saving_Path, "Other"));
+                    Thread save_image = new Thread(() => { HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(Other_Char_Saving_Path, "Other")); });
+                    //HOperatorSet.WriteImage(Image_Crop, "tiff", 0, GetFileName(Other_Char_Saving_Path, "Other"));
+                    save_image.Start();
                     Thread.Sleep(save_image_delay);
                 }
             }
@@ -653,7 +662,8 @@ namespace OCR_training_program
             string file_name = string.Empty;
             do
             {
-                file_name = Save_Path + $"{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}_{Char_Name}" + Random_Code();
+                file_name = Save_Path + "\\" + $"{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}_{Char_Name}_" + Random_Code();
+                //file_name += "1";
             } while (File.Exists(file_name));
             return file_name;
         }
@@ -668,19 +678,19 @@ namespace OCR_training_program
             switch (Char.GetUnicodeCategory(char_name))
             {
                 case System.Globalization.UnicodeCategory.UppercaseLetter:
-                    return Uppercase_Char_Saving_Path;
+                    return Uppercase_Char_Saving_Path + "\\" + char_name;
                     break;
 
                 case System.Globalization.UnicodeCategory.LowercaseLetter:
-                    return Lowercase_Char_Saving_Path;
+                    return Lowercase_Char_Saving_Path + "\\" + char_name;
                     break;
 
                 case System.Globalization.UnicodeCategory.DecimalDigitNumber:
-                    return Number_Char_Saving_Path;
+                    return Number_Char_Saving_Path + "\\" + char_name;
                     break;
 
                 default:
-                    return string.Empty;
+                    return Other_Char_Saving_Path + "\\" + char_name;
                     break;
             }
         }
@@ -774,6 +784,7 @@ namespace OCR_training_program
         private List<string> Basic_Region_Feature = new List<string>();
         private string OCR_Training_FileName = string.Empty;
         private string OCR_Training_Interpolate = string.Empty;
+        private int OCR_Training_Interpolate_Option;
 
         /// <summary>
         /// 紀錄訓練狀態的階段
@@ -826,6 +837,7 @@ namespace OCR_training_program
         /// <param name="e"></param>
         private void btn_Start_Train_OCR_Click(object sender, EventArgs e)
         {
+            OCR_Training_Interpolate_Option = cBx_Interpolate.SelectedIndex;
             if (!bgW_TraingOCR.IsBusy)
             {
                 bgW_TraingOCR.RunWorkerAsync();
@@ -974,7 +986,7 @@ namespace OCR_training_program
             ///數字
             for (int i = 0; i < Number_Char_dir.Count; i++)
             {
-                string[] image_files = Directory.GetFiles(Number_Char_dir[i], "*.tiff|*.tif");
+                string[] image_files = Directory.GetFiles(Number_Char_dir[i], "*.tif");
                 for (int j = 0; j < image_files.Length; j++)
                 {
                     HOperatorSet.ReadImage(out HObject current_image, image_files[j]);
@@ -985,7 +997,7 @@ namespace OCR_training_program
             ///大寫字母
             for (int i = 0; i < Upper_Case_Char_dir.Count; i++)
             {
-                string[] image_files = Directory.GetFiles(Upper_Case_Char_dir[i], "*.tiff|*.tif");
+                string[] image_files = Directory.GetFiles(Upper_Case_Char_dir[i], "*.tif");
                 for (int j = 0; j < image_files.Length; j++)
                 {
                     HOperatorSet.ReadImage(out HObject current_image, image_files[j]);
@@ -996,7 +1008,7 @@ namespace OCR_training_program
             ///小寫字母
             for (int i = 0; i < Lower_Case_Char_dir.Count; i++)
             {
-                string[] image_files = Directory.GetFiles(Lower_Case_Char_dir[i], "*.tiff|*.tif");
+                string[] image_files = Directory.GetFiles(Lower_Case_Char_dir[i], "*.tif");
                 for (int j = 0; j < image_files.Length; j++)
                 {
                     HOperatorSet.ReadImage(out HObject current_image, image_files[j]);
@@ -1103,7 +1115,8 @@ namespace OCR_training_program
             //Log
             Traing_State = $"Output_OCR_OMC()";
             bgW_TraingOCR.ReportProgress(1);
-            HOperatorSet.WriteOcrClassMlp(OCR_Handle, "C:/Users/LouisDing/Desktop/測試訓練檔.omc");
+            //思考一下，如果已有完成的訓練檔產出，是否需要覆蓋，或者體醒使用者備份
+            HOperatorSet.WriteOcrClassMlp(OCR_Handle, Par.OCR_OMC_FilePath + OCR_Training_FileName + ".omc"); //待修改檔名建立方式
         }
 
         /// <summary>
@@ -1115,7 +1128,8 @@ namespace OCR_training_program
             Traing_State = $"Set_Training_Condition()";
             bgW_TraingOCR.ReportProgress(1);
             ///讀取訓練模式
-            switch (cBx_Interpolate.SelectedIndex)
+
+            switch (OCR_Training_Interpolate_Option)
             {
                 case (int)Training_Interpolate_Option.constant:
                     OCR_Training_Interpolate = "constant";
@@ -1180,8 +1194,8 @@ namespace OCR_training_program
             //Log
             Traing_State = $"Train_OCR_Handle()";
             bgW_TraingOCR.ReportProgress(1);
-
-            HOperatorSet.TrainfOcrClassMlp(OCR_Handle, Par.OCR_Traing_FilePath + OCR_Training_FileName, 200, 1, 0.01, out Training_Error, out Training_Error_Log);
+            //有例外狀況
+            HOperatorSet.TrainfOcrClassMlp(OCR_Handle, Par.OCR_Traing_FilePath + OCR_Training_FileName + ".trf", 200, 1, 0.01, out Training_Error, out Training_Error_Log);
         }
 
         #endregion Method
