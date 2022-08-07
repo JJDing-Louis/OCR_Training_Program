@@ -125,6 +125,10 @@ namespace OCR_training_program
 
         #endregion 初始化流程
 
+        #region 表單引數
+        private OCR_Training_File_Browser trf_Browser = null;
+        #endregion 表單引數
+
         #region 字元分類
 
         #region 欄位
@@ -587,7 +591,7 @@ namespace OCR_training_program
                         HOperatorSet.SetColor(HSWC.HalconWindow, "red");
                         HOperatorSet.DispObj(ho_Char_Contours, HSWC.HalconWindow);
                         //
-                        HOperatorSet.SelectObj(ho_Char_Rectangle, out HObject ho_Selected_Region, i);
+                        HOperatorSet.SelectObj(ho_Char_Rectangle, out HObject ho_Selected_Region, i+1);
                         HOperatorSet.ReduceDomain(ho_OriImage, ho_Selected_Region, out HObject Image_Reduce);
                         HOperatorSet.CropDomain(Image_Reduce, out HObject Image_Crop);
                         //存圖動作
@@ -828,6 +832,8 @@ namespace OCR_training_program
                     txt_Train_OCR_Filename.Text = OCR_Training_FileName;
                 }
             }
+            //讀取OCR訓練檔
+            Load_or_Create_OCR_Traing_File();
         }
 
         /// <summary>
@@ -955,6 +961,60 @@ namespace OCR_training_program
             }
         }
 
+        /// <summary>
+        /// 開始訓練OCR背景程序
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bgW_TraingOCR_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ///步驟草稿
+            ///1. 讀取命名檔名(需有訓練檔命名規則)
+            ///2. 讀取已有的訓練檔或者建立新檔
+            Load_or_Create_OCR_Traing_File();
+            ///3. 遍歷圖檔並加入訓練檔
+            Append_OCR_Image();
+            ///4. 讀取設定條件
+            Set_Training_Condition();
+            /// 4.1建立OCR_handle
+            Create_OCR_Handle();
+            ///5. 開始訓練
+            Train_OCR_Handle();
+            ///6. 輸出訓練檔
+            Output_OCR_OMC();
+            ///更新狀態(訓練完成)
+            ///Log
+            Traing_State = $"Finish Training";
+            bgW_TraingOCR.ReportProgress(1);
+        }
+
+        private void bgW_TraingOCR_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            switch (e.ProgressPercentage)
+            {
+                case 1: //紀錄Log
+                    logger.Info($"{Traing_State}");
+                    break;
+
+                case 2: //更新訓練狀態的UI(尚未建立)
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void btn_Show_Training_File_Browser_Click(object sender, EventArgs e)
+        {
+            ////方案一
+            //trf_Browser = new OCR_Training_File_Browser();
+            //trf_Browser.Show();
+            //方案二
+            trf_Browser = new OCR_Training_File_Browser(Characters_Images,  Characters_Names);
+            trf_Browser.Show();
+        }
+
         #endregion 控鍵
 
         #region Method
@@ -1015,50 +1075,6 @@ namespace OCR_training_program
                     HOperatorSet.BinaryThreshold(current_image, out HObject current_region, "max_separability", "dark", out HTuple current_Threshold);
                     HOperatorSet.AppendOcrTrainf(current_region, current_image, Lower_Case_Char_dir[i].Substring(Lower_Case_Char_dir[i].LastIndexOf('\\') + 1), Par.OCR_Traing_FilePath + OCR_Training_FileName);
                 }
-            }
-        }
-
-        /// <summary>
-        /// 開始訓練OCR背景程序
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bgW_TraingOCR_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ///步驟草稿
-            ///1. 讀取命名檔名(需有訓練檔命名規則)
-            ///2. 讀取已有的訓練檔或者建立新檔
-            Load_or_Create_OCR_Traing_File();
-            ///3. 遍歷圖檔並加入訓練檔
-            Append_OCR_Image();
-            ///4. 讀取設定條件
-            Set_Training_Condition();
-            /// 4.1建立OCR_handle
-            Create_OCR_Handle();
-            ///5. 開始訓練
-            Train_OCR_Handle();
-            ///6. 輸出訓練檔
-            Output_OCR_OMC();
-            ///更新狀態(訓練完成)
-            ///Log
-            Traing_State = $"Finish Training";
-            bgW_TraingOCR.ReportProgress(1);
-        }
-
-        private void bgW_TraingOCR_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            switch (e.ProgressPercentage)
-            {
-                case 1: //紀錄Log
-                    logger.Info($"{Traing_State}");
-                    break;
-
-                case 2: //更新訓練狀態的UI(尚未建立)
-
-                    break;
-
-                default:
-                    break;
             }
         }
 
@@ -1598,6 +1614,8 @@ namespace OCR_training_program
         {
             Exclude_Chars = "^[^" + txt_Exclude_Chars.Text + "]*$";
         }
+
+
 
         #endregion 控鍵
 

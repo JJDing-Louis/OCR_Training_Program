@@ -137,6 +137,7 @@ namespace OCR_training_program
             this.button6 = new System.Windows.Forms.Button();
             this.bgW_TraingOCR = new System.ComponentModel.BackgroundWorker();
             this.bgW_RunTestOCR = new System.ComponentModel.BackgroundWorker();
+            this.btn_Show_Training_File_Browser = new System.Windows.Forms.Button();
             this.tabCon_Char_Classifier.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -609,8 +610,7 @@ namespace OCR_training_program
             this.txt_file_path.Name = "txt_file_path";
             this.txt_file_path.Size = new System.Drawing.Size(353, 34);
             this.txt_file_path.TabIndex = 3;
-            this.txt_file_path.Text = "D:\\Project_Folder\\TSMC\\TSMC_歷史Issue\\OCR\\TSMC_Issue10(20220616)\\L4P5W2.L1_2223\\Sta" +
-    "tion A\\DC";
+            this.txt_file_path.Text = "C:\\Users\\LouisDing\\Desktop\\Test_Folder\\2223";
             // 
             // txt_Compare_text
             // 
@@ -646,6 +646,7 @@ namespace OCR_training_program
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btn_Show_Training_File_Browser);
             this.tabPage2.Controls.Add(this.cB_Advance_Setting_Enable);
             this.tabPage2.Controls.Add(this.btn_Load_Traing_File);
             this.tabPage2.Controls.Add(this.lbl_Interpolate);
@@ -1500,6 +1501,16 @@ namespace OCR_training_program
             this.bgW_RunTestOCR.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgW_RunTestOCR_DoWork);
             this.bgW_RunTestOCR.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgW_RunTestOCR_ProgressChanged);
             // 
+            // btn_Show_Training_File_Browser
+            // 
+            this.btn_Show_Training_File_Browser.Location = new System.Drawing.Point(851, 14);
+            this.btn_Show_Training_File_Browser.Name = "btn_Show_Training_File_Browser";
+            this.btn_Show_Training_File_Browser.Size = new System.Drawing.Size(117, 34);
+            this.btn_Show_Training_File_Browser.TabIndex = 10;
+            this.btn_Show_Training_File_Browser.Text = "Browser";
+            this.btn_Show_Training_File_Browser.UseVisualStyleBackColor = true;
+            this.btn_Show_Training_File_Browser.Click += new System.EventHandler(this.btn_Show_Training_File_Browser_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1641,6 +1652,7 @@ namespace OCR_training_program
         private System.ComponentModel.BackgroundWorker bgW_RunTestOCR;
         private System.Windows.Forms.TextBox txt_Exclude_Chars;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btn_Show_Training_File_Browser;
     }
 }
 

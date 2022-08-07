@@ -81,11 +81,20 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="OCR_Training_File_Browser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OCR_Training_File_Browser.Designer.cs">
+      <DependentUpon>OCR_Training_File_Browser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Par.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OCR_Training_File_Browser.resx">
+      <DependentUpon>OCR_Training_File_Browser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

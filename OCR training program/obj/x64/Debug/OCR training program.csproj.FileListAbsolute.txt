@@ -45,3 +45,4 @@ D:\Personal-Work-Space\C# Project\C# WinForm\OCR_Training_Program\OCR training p
 D:\Personal-Work-Space\C# Project\C# WinForm\OCR_Training_Program\OCR training program\obj\x64\Debug\OCR training program.csproj.CopyComplete
 D:\Personal-Work-Space\C# Project\C# WinForm\OCR_Training_Program\OCR training program\obj\x64\Debug\OCR training program.exe
 D:\Personal-Work-Space\C# Project\C# WinForm\OCR_Training_Program\OCR training program\obj\x64\Debug\OCR training program.pdb
+D:\Personal-Work-Space\C# Project\C# WinForm\OCR_Training_Program\OCR training program\obj\x64\Debug\OCR_training_program.OCR_Training_File_Browser.resources
